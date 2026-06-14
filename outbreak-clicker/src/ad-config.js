@@ -18,8 +18,7 @@ const TEST = {
 // Real production units from the AdMob console:
 const PROD = {
   banner: 'ca-app-pub-3652166615907322/7569773912',
-  // TODO: リワード広告ユニットを AdMob で作成し、ここに差し替える（未作成）。
-  rewarded: 'TODO_CREATE_REWARDED_UNIT',
+  rewarded: 'ca-app-pub-3652166615907322/1394911095',
 };
 
 // Keep true while developing/testing. Set false only for the store release.
