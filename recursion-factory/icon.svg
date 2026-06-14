@@ -1,0 +1,11 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="再帰工場 / Recursion Factory">
+  <rect width="512" height="512" rx="115" fill="#15131c"/>
+  <!-- recursion arc curving up to the singularity spark -->
+  <path d="M132 318 Q205 96 392 150" fill="none" stroke="#534ab7" stroke-width="24" stroke-linecap="round"/>
+  <!-- rising production bars (purple -> coral): number-go-up -->
+  <rect x="150" y="300" width="56" height="92"  rx="14" fill="#7f77dd"/>
+  <rect x="228" y="248" width="56" height="144" rx="14" fill="#9a8cff"/>
+  <rect x="306" y="176" width="56" height="216" rx="14" fill="#ff7a4d"/>
+  <!-- singularity spark -->
+  <circle cx="392" cy="150" r="22" fill="#ffd27a"/>
+</svg>

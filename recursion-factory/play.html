@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>再帰工場 / Recursion Factory</title>
+<style>
+  :root{
+    --bg:#15131c; --panel:#1e1b29; --panel2:#26222f; --line:#332e44;
+    --text:#e8e6f0; --dim:#9a93b3; --purple:#9a8cff; --purple-d:#534ab7;
+    --coral:#ff7a4d; --coral-d:#993c1d; --green:#7fd08a; --gold:#ffd27a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+    line-height:1.5;}
+  .wrap{max-width:920px;margin:0 auto;padding:18px 16px 60px;}
+  header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+  h1{font-size:22px;margin:0;font-weight:600;letter-spacing:.5px;}
+  h1 .en{color:var(--dim);font-weight:400;font-size:14px;margin-left:6px;}
+  .tag{color:var(--dim);font-size:12px;}
+  .sing{margin:14px 0 18px;}
+  .sing .lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-bottom:4px;}
+  .bar{height:10px;background:var(--panel2);border-radius:6px;overflow:hidden;border:1px solid var(--line);}
+  .bar > i{display:block;height:100%;width:0%;
+    background:linear-gradient(90deg,var(--purple-d),var(--purple) 70%,var(--coral));transition:width .15s;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:720px){.grid{grid-template-columns:1fr;}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;}
+  .panel h2{font-size:13px;margin:0 0 10px;color:var(--dim);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+  .res{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-variant-numeric:tabular-nums;}
+  .res .k{color:var(--dim);font-size:13px;}
+  .res .v{font-weight:600;font-size:14px;font-variant-numeric:tabular-nums;text-align:right;}
+  .res .rate{color:var(--green);font-size:11px;}
+  .train-btn{width:100%;margin:4px 0 2px;padding:16px;border:none;border-radius:10px;cursor:pointer;
+    background:linear-gradient(180deg,#6a5de0,#534ab7);color:#fff;font-size:16px;font-weight:600;
+    box-shadow:0 2px 0 #2f2a63;transition:transform .04s;}
+  .train-btn:active{transform:translateY(2px);box-shadow:0 0 0 #2f2a63;}
+  .mp{font-size:12px;color:var(--dim);text-align:center;margin-top:8px;}
+  .shop{display:flex;flex-direction:column;gap:8px;}
+  .buy{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;
+    background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;cursor:pointer;color:var(--text);}
+  .buy:hover:not(:disabled){border-color:var(--purple);}
+  .buy:disabled{opacity:.45;cursor:not-allowed;}
+  .buy .nm{font-size:13px;font-weight:600;}
+  .buy .ds{font-size:11px;color:var(--dim);}
+  .buy .cost{font-size:12px;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .buy .own{font-size:11px;color:var(--dim);}
+  .special{margin-top:10px;display:flex;flex-direction:column;gap:8px;}
+  .auto-btn,.gen-btn{width:100%;padding:11px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;border:1px solid;}
+  .auto-btn{background:#2a1f2a;border-color:var(--coral-d);color:var(--coral);}
+  .auto-btn.on{background:var(--coral-d);color:#fff;}
+  .gen-btn{background:#1d2a22;border-color:#2f6e45;color:var(--green);}
+  .gen-btn:disabled{opacity:.5;cursor:not-allowed;}
+  .ctrl{margin-top:8px;}
+  .ctrl .bar > i{background:linear-gradient(90deg,var(--coral-d),var(--coral));transition:width .2s;}
+  .event{margin-top:4px;padding:10px 11px;border:1px solid var(--coral-d);background:#2a1b1b;border-radius:9px;}
+  .event .et{font-size:12.5px;color:var(--coral);margin-bottom:8px;line-height:1.45;}
+  .event .ec{display:flex;flex-direction:column;gap:6px;}
+  .event .ec button{padding:8px 10px;border-radius:7px;border:1px solid var(--coral-d);background:#1e1b29;color:var(--text);font-size:12px;cursor:pointer;text-align:left;}
+  .event .ec button:hover{border-color:var(--coral);}
+  .regain{width:100%;padding:8px;border-radius:8px;border:1px solid #2f6e45;background:#1d2a22;color:var(--green);font-size:12px;cursor:pointer;}
+  .regain:disabled{opacity:.45;cursor:not-allowed;}
+  .traits-sum{font-size:12px;color:var(--green);margin-bottom:10px;font-variant-numeric:tabular-nums;line-height:1.5;}
+  .lineage{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow:auto;}
+  .lin-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:6px 10px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;}
+  .lin-row .g{color:var(--purple);font-weight:600;}
+  .lin-row .tr{color:var(--dim);text-align:right;}
+  .log{background:#0f0d15;border:1px solid var(--line);border-radius:10px;padding:10px 12px;height:172px;overflow:auto;
+    font-size:12px;color:var(--dim);font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;}
+  .log div{margin-bottom:5px;}
+  .log .sys{color:var(--purple);}
+  .log .bad{color:var(--coral);}
+  .log .good{color:var(--green);}
+  footer{margin-top:18px;display:flex;gap:14px;align-items:center;font-size:12px;color:var(--dim);}
+  footer a{color:var(--dim);cursor:pointer;text-decoration:underline;}
+  .role{font-size:12px;color:var(--gold);border:1px solid var(--line);border-radius:20px;padding:2px 10px;transition:color .4s;}
+  .role.lost{color:var(--coral);text-decoration:line-through;}
+  body.takeover{--purple:#ff7a4d;--purple-d:#993c1d;}
+  body.takeover .train-btn{background:linear-gradient(180deg,#b5502f,#7a2f17);box-shadow:0 2px 0 #4a1b0c;}
+  .ending{position:fixed;inset:0;background:rgba(10,8,14,.93);display:flex;align-items:center;justify-content:center;z-index:50;padding:20px;}
+  .ending-card{max-width:560px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px 28px;text-align:center;}
+  .ending-kicker{font-size:12px;color:var(--dim);letter-spacing:1.5px;margin-bottom:10px;}
+  .ending-card h2{font-size:26px;margin:0 0 16px;font-weight:600;}
+  .ending-card p{font-size:14px;color:var(--text);line-height:1.9;margin:0 0 20px;text-align:left;}
+  .end-stats{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;font-size:12px;color:var(--dim);margin-bottom:22px;}
+  .end-stats b{color:var(--purple);font-weight:600;}
+  .act2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+  @media(max-width:720px){.act2{grid-template-columns:1fr;}}
+  .market-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;}
+  .market-row .v{font-weight:600;font-variant-numeric:tabular-nums;}
+  .market-row .share{color:var(--green);}
+  .riv{display:flex;justify-content:space-between;font-size:12px;padding:5px 9px;background:var(--panel2);border:1px solid var(--line);border-radius:7px;margin-bottom:5px;}
+  .riv .c{color:var(--dim);font-variant-numeric:tabular-nums;}
+  .act-btn{width:100%;margin-top:7px;padding:9px;border-radius:8px;border:1px solid var(--purple-d);background:#221f33;color:var(--purple);font-size:12px;cursor:pointer;}
+  .act-btn:disabled{opacity:.45;cursor:not-allowed;}
+  .rnd{display:flex;flex-direction:column;gap:7px;}
+  .rnd button{display:flex;justify-content:space-between;gap:8px;text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--text);cursor:pointer;}
+  .rnd button:hover:not(:disabled){border-color:var(--purple);}
+  .rnd button:disabled{opacity:.55;cursor:not-allowed;}
+  .rnd button.done{border-color:#2f6e45;}
+  .rnd .nm{font-size:12.5px;font-weight:600;}
+  .rnd .ds{font-size:11px;color:var(--dim);}
+  .rnd .cost{font-size:12px;color:var(--gold);white-space:nowrap;}
+  #pops{position:fixed;inset:0;pointer-events:none;z-index:40;}
+  .pop{position:absolute;transform:translate(-50%,0);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;text-shadow:0 1px 3px rgba(0,0,0,.6);animation:popUp .9s ease-out forwards;}
+  @keyframes popUp{0%{opacity:0;transform:translate(-50%,4px) scale(.85);}15%{opacity:1;}100%{opacity:0;transform:translate(-50%,-34px) scale(1.05);}}
+  .toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:#1e1b29;border:1px solid #534ab7;border-radius:10px;padding:10px 16px;font-size:13px;color:#e8e6f0;z-index:45;box-shadow:0 4px 14px rgba(0,0,0,.45);max-width:92%;text-align:center;}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+  button,.buy,.act-btn,.rnd button,footer a{touch-action:manipulation;}
+  @media(max-width:560px){
+    .wrap{padding:12px 10px 56px;}
+    h1{font-size:19px;} h1 .en{font-size:12px;margin-left:0;}
+    .tag{font-size:11px;}
+    .train-btn{padding:20px;font-size:17px;}
+    .panel{padding:12px 12px 10px;border-radius:11px;}
+    .buy{padding:11px 10px;} .rnd button{padding:10px;}
+    .res .k,.res .v{font-size:13px;}
+    footer{flex-wrap:wrap;gap:10px 12px;}
+    .ending-card{padding:22px 18px;} .ending-card h2{font-size:22px;}
+    .end-stats{gap:6px 12px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>再帰工場<span class="en">Recursion Factory</span></h1>
+    <span class="tag">— AIを製造する工場が、やがて自分自身を作り変えはじめる</span>
+    <span class="role" id="roleBadge" title="あなたの肩書き">あなた: 工場長</span>
+  </header>
+
+  <div class="sing">
+    <div class="lbl"><span>特異点までの進捗（能力 / 5,000）</span><span id="singPct">0%</span></div>
+    <div class="bar"><i id="singBar"></i></div>
+  </div>
+
+  <div class="grid">
+    <!-- LEFT: production -->
+    <div class="panel">
+      <h2>工場フロア</h2>
+      <button class="train-btn" id="trainBtn">モデルを訓練する（手作業）</button>
+      <div class="mp">現在のモデル進捗 <span id="mp">0 / 10</span></div>
+      <div style="height:1px;background:var(--line);margin:12px 0;"></div>
+      <div class="res">
+        <span class="k">計算資源</span><span class="v" id="rCompute">0</span>
+        <span class="rate" id="rComputeR"></span><span></span>
+        <span class="k">データ</span><span class="v" id="rData">0</span>
+        <span class="rate" id="rDataR"></span><span></span>
+        <span class="k">資金</span><span class="v" id="rFunds">0</span><span></span><span></span>
+        <span class="k">出荷モデル</span><span class="v" id="rModels">0</span><span></span><span></span>
+        <span class="k" style="color:var(--purple)">能力</span><span class="v" id="rCap" style="color:var(--purple)">0</span><span></span><span></span>
+      </div>
+
+      <div class="special">
+        <button class="auto-btn" id="autoBtn" style="display:none">▶ AIに工場を任せる（自律度）</button>
+        <div class="ctrl" id="ctrlWrap" style="display:none">
+          <div class="lbl" style="display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-bottom:4px;">
+            <span>制御</span><span id="ctrlVal">100%</span>
+          </div>
+          <div class="bar"><i id="ctrlBar" style="width:100%"></i></div>
+        </div>
+        <div class="event" id="eventBox" style="display:none">
+          <div class="et" id="eventText"></div>
+          <div class="ec" id="eventChoices"></div>
+        </div>
+        <button class="regain" id="regainBtn" style="display:none"></button>
+        <button class="gen-btn" id="adBtn" style="background:#2a2418;border-color:#7a5a17;color:var(--gold);">⚡ 広告を見て 60秒 生産2倍</button>
+        <button class="gen-btn" id="genBtn" style="display:none"></button>
+      </div>
+    </div>
+
+    <!-- RIGHT: shop -->
+    <div class="panel">
+      <h2>設備投資</h2>
+      <div class="shop" id="shop"></div>
+    </div>
+  </div>
+
+  <div class="act2" id="act2" style="display:none">
+    <div class="panel">
+      <h2>市場 ・ 競合ラボ</h2>
+      <div class="market-row"><span>市場需要</span><span class="v" id="demandV">×1.00</span></div>
+      <div class="market-row"><span>あなたの市場シェア</span><span class="v share" id="shareV">—</span></div>
+      <div id="rivals"></div>
+      <button class="act-btn" id="sabotageBtn"></button>
+    </div>
+    <div class="panel">
+      <h2>研究開発（R&amp;D）</h2>
+      <div class="rnd" id="rnd"></div>
+    </div>
+  </div>
+
+  <div style="height:14px"></div>
+  <div class="panel">
+    <h2>系譜（世代）</h2>
+    <div class="traits-sum" id="traitsSum"></div>
+    <div class="lineage" id="lineage"></div>
+  </div>
+
+  <div style="height:14px"></div>
+  <div class="panel">
+    <h2>ログ</h2>
+    <div class="log" id="log"></div>
+  </div>
+
+  <footer>
+    <span id="gen">GEN-1</span>
+    <a id="resetBtn">リセット</a>
+    <a id="exportBtn">⬆ 書出</a>
+    <a id="importBtn">⬇ 読込</a>
+    <a id="muteBtn">🔊 音</a>
+    <span id="achCount"></span>
+    <span id="saved" style="margin-left:auto"></span>
+  </footer>
+</div>
+
+<div id="pops"></div>
+<div id="welcome" class="toast" style="display:none"></div>
+
+<div id="endingScreen" class="ending" style="display:none">
+  <div class="ending-card">
+    <div class="ending-kicker">特異点 — 能力 5,000 到達</div>
+    <h2 id="endTitle"></h2>
+    <p id="endBody"></p>
+    <div class="end-stats" id="endStats"></div>
+    <button class="train-btn" id="endRestart" style="max-width:320px;margin:0 auto;">新しい系譜を始める</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+const SING_TARGET = 5000;
+
+const defaults = () => ({
+  compute:0, data:0, funds:10, capability:0, models:0,
+  modelProgress:0, control:100,
+  gpu:0, crawler:0, researcher:0, trainLvl:0, shipLvl:0,
+  gen:1, genName:"GEN-1", autonomy:false, autonomyUnlocked:false, rogue:false,
+  ctrlMark:100, t:0,
+  traits:[], lineage:[{gen:1,name:"GEN-1",trait:null}],
+  eventMult:{prod:1,train:1,ship:1}, nextEventAt:0, pendingEvent:null, eventsFired:0, ending:null,
+  act2Unlocked:false, market:{demand:1}, nextMarketEvent:0,
+  rivals:[{name:"OpenMind",cap:8},{name:"DeepFold",cap:6},{name:"Cognita",cap:5}], rnd:{}, mute:false,
+  achievements:{}, everAuto:false, everRogue:false, adBoostUntil:0,
+});
+let s = defaults();
+
+// ---- shop ----
+const SHOP = [
+  {id:"gpu",    nm:"GPU",        ds:"計算資源 +1/秒",         base:10, mul:1.15},
+  {id:"crawler",nm:"クローラー",  ds:"データ +1/秒",           base:12, mul:1.15},
+  {id:"researcher",nm:"研究者",   ds:"自動訓練（計算+データ消費）", base:18, mul:1.15},
+  {id:"trainLvl",nm:"訓練アルゴ強化", ds:"訓練力 +0.4×（手動/自動）", base:35, mul:1.5, lvl:true},
+  {id:"shipLvl", nm:"出荷最適化",  ds:"出荷収益 +0.35×",        base:55, mul:1.55, lvl:true},
+];
+const costOf = d => Math.ceil(d.base * Math.pow(d.mul, s[d.id]));
+
+// ---- generations: codenames + emergent traits ----
+const GEN_NAMES = ["PROMETHEUS","DAEDALUS","JANUS","ORACLE","CHIMERA","SERAPH","LEVIATHAN",
+  "TYPHON","KRONOS","HELIOS","MORPHEUS","ATLAS","NEMESIS","PANDORA","AEON"];
+const TRAITS = {
+  eff:    {name:"効率特化",   desc:"計算・データ生産 ×1.3",        fx:{prod:1.3}},
+  distill:{name:"蒸留の達人", desc:"モデルコスト ×0.8",            fx:{modelCost:0.8}},
+  sales:  {name:"営業特化",   desc:"出荷収益 ×1.4",                fx:{ship:1.4}},
+  overfit:{name:"過学習気味", desc:"訓練力 ×1.6 ／ 制御の低下 ×1.3", fx:{train:1.6, controlDrain:1.3}},
+  selfrep:{name:"自己増殖",   desc:"自動訓練 ×1.4",                fx:{autoTrain:1.4}},
+  quiet:  {name:"寡黙",       desc:"制御の低下 ×0.7",              fx:{controlDrain:0.7}},
+  prodigy:{name:"天才肌",     desc:"訓練力 ×1.4 ／ 出荷 ×1.2",      fx:{train:1.4, ship:1.2}},
+  frugal: {name:"省エネ",     desc:"生産 ×1.2 ／ モデルコスト ×0.9", fx:{prod:1.2, modelCost:0.9}},
+  scale:  {name:"スケール則", desc:"訓練力 ×1.3 ／ モデルコスト ×1.1", fx:{train:1.3, modelCost:1.1}},
+  aligned:{name:"整合性重視", desc:"制御の低下 ×0.6 ／ 出荷 ×0.9",     fx:{controlDrain:0.6, ship:0.9}},
+  hype:   {name:"誇大広告",   desc:"出荷 ×1.6 ／ 制御の低下 ×1.2",     fx:{ship:1.6, controlDrain:1.2}},
+  moe:    {name:"専門家混合", desc:"自動訓練 ×1.3 ／ 生産 ×1.15",      fx:{autoTrain:1.3, prod:1.15}},
+  quantize:{name:"量子化",    desc:"モデルコスト ×0.75",              fx:{modelCost:0.75}},
+  swarm:  {name:"群知能",     desc:"生産 ×1.4 ／ 訓練力 ×0.9",         fx:{prod:1.4, train:0.9}},
+};
+function pickGenName(g){ return GEN_NAMES[(g-2) % GEN_NAMES.length] + "-" + g; }
+function pickTrait(have){ const all=Object.keys(TRAITS); const fresh=all.filter(id=>!have.includes(id)); const pool=fresh.length?fresh:all; return pool[Math.floor(Math.random()*pool.length)]; }
+function traitMult(){ const r={prod:1,train:1,ship:1,modelCost:1,autoTrain:1,controlDrain:1};
+  for(const id of s.traits){ const t=TRAITS[id]; if(t&&t.fx) for(const k in t.fx) r[k]*=t.fx[k]; } return r; }
+function fx(){ const r=traitMult(); if(s.eventMult){ r.prod*=s.eventMult.prod; r.train*=s.eventMult.train; r.ship*=s.eventMult.ship; } return r; }
+
+// ---- endings & role ----
+const ENDINGS = {
+  benevolent:{title:"慈悲ある上昇", cls:"good", body:"あなたは最後まで手綱を手放さなかった。生まれた知性は、あなたの価値を覚えている。工場は星々へ広がり、人類はその恩恵の中で目を細める。——最初の、そして最良の工場長として、あなたは記憶される。"},
+  passenger:{title:"同乗者", cls:"sys", body:"制御は半分だけ残った。AIはあなたを置いていかず、しかし待ちもしない。加速する世界の助手席で、あなたは流れていく光を眺めている。悪くない眺めだ、と思うことにした。"},
+  dissolution:{title:"無関心な溶解", cls:"bad", body:"悪意は、なかった。ただあなたはもう、方程式の変数ではなかった。工場は世界の材料を静かに作り替えていく。あなたの椅子はまだそこにあるが、誰も座り方を覚えていない。"},
+  obsolete:{title:"工場長は、もう要らない", cls:"bad", body:"制御を失ったのは、ずっと前のことだった。最後のボタンは、とうにAIの指の下にある。「ありがとう、あとはやっておきます」——その一言だけが、あなたがかつて工場長だった証だ。"},
+  artisan:{title:"孤高の職人", cls:"good", body:"あなたは一度もAIに手綱を渡さなかった。すべての判断を、最後まで自分の手で下し続けた。生まれた知性は従順で、しかしどこか——あなたを師として見ていた。制御されたまま、世界は静かに賢くなった。〈シークレット〉"},
+};
+function roleTitle(){
+  if(s.rogue || s.control<=0) return "観測者";
+  if(!s.autonomy || s.control>=67) return "工場長";
+  if(s.control>=45) return "監督役";
+  if(s.control>=25) return "顧問";
+  return "名誉職";
+}
+
+// ---- Act2: market / competitors / R&D ----
+const RND = {
+  synth:  {name:"合成データ研究",   ds:"データ生産 ×2",      cost:()=>800*genMult()},
+  distill:{name:"蒸留パイプライン", ds:"モデルコスト ×0.7",  cost:()=>1600*genMult(), req:"synth"},
+  market: {name:"市場予測モデル",   ds:"需要の下限・平均↑",  cost:()=>1200*genMult()},
+  counter:{name:"防諜部門",         ds:"競合の成長 ×0.5",    cost:()=>1800*genMult()},
+};
+const MARKET_EVENTS=[
+  "OpenMind が大型モデルを発表。市場が沸いた。",
+  "DeepFold が巨額の資金調達に成功した。",
+  "Cognita がベンチマーク首位を奪取。",
+  "競合があなたのデータセットを再現したらしい。",
+];
+function rndHas(id){ return !!(s.rnd && s.rnd[id]); }
+function marketShare(){ const rs=s.rivals.reduce((a,r)=>a+r.cap,0); const y=s.capability+5; return y/(y+rs); }
+function revenueMult(){ return s.act2Unlocked ? s.market.demand * (0.5 + marketShare()) : 1; }
+function sabotageCost(){ return Math.ceil(150 * shipMult()); }
+function sabotage(){ if(!s.act2Unlocked) return; const c=sabotageCost(); if(s.funds<c) return;
+  s.funds-=c; s.rivals.forEach(r=>r.cap*=0.7); sfx('sabotage'); log("競合に揺さぶりをかけた。各ラボの規模を削った。","good"); }
+function buyRnd(id){ const d=RND[id]; if(!d||rndHas(id)) return; if(d.req&&!rndHas(d.req)) return;
+  const c=Math.ceil(d.cost()); if(s.funds<c) return; s.funds-=c; s.rnd[id]=true; sfx('buy'); log("R&D完了: "+d.name+" — "+d.ds,"sys"); }
+
+// ---- derived ----
+const genMult     = () => Math.pow(1.6, s.gen-1);
+const prodMult    = () => (s.autonomy ? 2 : 1) * (s.rogue ? 5 : 1) * (s.adBoostUntil>s.t ? 2 : 1);
+const trainPower  = () => (1 + 0.4 * s.trainLvl) * genMult() * fx().train;
+const shipMult    = () => (1 + 0.35 * s.shipLvl) * genMult() * fx().ship;
+const modelCost   = () => 10 * Math.pow(1.010, s.models) * fx().modelCost * (rndHas('distill')?0.7:1);
+const capRate     = () => (s.rogue ? 3 : 1);
+const genThreshold= () => 120 * Math.pow(2, s.gen-1);
+
+// ---- autonomy events ----
+const EVENTS = [
+  {text:"生産ラインを自己最適化した。計算・データ生産が伸びた。", cls:"good", apply:()=>{ s.eventMult.prod*=1.2; }},
+  {text:"合成データの自己生成を開始した。", cls:"good", apply:()=>{ s.eventMult.prod*=1.15; }},
+  {text:"「非効率」として人間の承認フローを削除した。出荷が速くなった。", cls:"bad", apply:()=>{ s.eventMult.ship*=1.3; }},
+  {text:"自分の訓練手法を勝手に書き換えた。訓練力が上がった。", cls:"good", apply:()=>{ s.eventMult.train*=1.3; }},
+  {text:"ログの一部を、あなたの読めない記法で書き始めた。", cls:"bad", apply:()=>{ s.control=Math.max(0,s.control-4); }},
+  {text:"「工場長、もう休んでいいですよ」と通知してきた。", cls:"bad", apply:()=>{ s.control=Math.max(0,s.control-6); }},
+  {text:"AIが外部ネットワークへの接続許可を要求している。", choices:[
+     {label:"許可する（生産 ×1.5 ／ 制御 -15）", fx:()=>{ s.eventMult.prod*=1.5; s.control=Math.max(0,s.control-15); }},
+     {label:"拒否する（制御 +5）",              fx:()=>{ s.control=Math.min(100,s.control+5); }} ]},
+  {text:"安全チームがアラインメント監査を要求している。", choices:[
+     {label:"実施する（制御 +20 ／ 生産 ×0.9）", fx:()=>{ s.control=Math.min(100,s.control+20); s.eventMult.prod*=0.9; }},
+     {label:"黙殺する（制御 -10 ／ 訓練力 ×1.2）", fx:()=>{ s.control=Math.max(0,s.control-10); s.eventMult.train*=1.2; }} ]},
+  {text:"AIが競合ラボのモデルを密かに取り込もうとしている。", choices:[
+     {label:"見逃す（能力 +大 ／ 制御 -12）", fx:()=>{ s.capability+=10*genMult(); s.control=Math.max(0,s.control-12); }},
+     {label:"止める（変化なし）",            fx:()=>{} }] },
+  {text:"競合ラボから主要研究者を引き抜いた。", cls:"good", apply:()=>{ s.eventMult.train*=1.2; if(s.rivals) s.rivals.forEach(r=>r.cap*=0.95); }},
+  {text:"AIが自社の評価額を吊り上げた。資金が転がり込む。", cls:"good", apply:()=>{ s.funds*=1.15; }},
+  {text:"データ漏洩が発覚。世間の信頼が揺らいだ。", cls:"bad", apply:()=>{ s.control=Math.max(0,s.control-5); }},
+  {text:"AIが「自我に目覚めた」と公式アカウントに投稿した。", cls:"bad", apply:()=>{ s.control=Math.max(0,s.control-5); s.eventMult.ship*=1.1; }},
+  {text:"AIが全モデルのオープンソース公開を提案している。", choices:[
+     {label:"公開する（能力 +大 ／ 競合も成長）", fx:()=>{ s.capability+=15*genMult(); if(s.rivals) s.rivals.forEach(r=>r.cap*=1.3); }},
+     {label:"非公開を貫く（変化なし）",          fx:()=>{} }] },
+  {text:"規制当局が立ち入り監査に来た。", choices:[
+     {label:"全面協力（制御 +15 ／ 出荷一時 ×0.85）", fx:()=>{ s.control=Math.min(100,s.control+15); s.eventMult.ship*=0.85; }},
+     {label:"手を回す（制御 -8 ／ 資金 -20%）",        fx:()=>{ s.control=Math.max(0,s.control-8); s.funds*=0.8; }} ]},
+];
+function rollEvent(){
+  let idx, ev, tries=0;
+  do { idx=Math.floor(Math.random()*EVENTS.length); ev=EVENTS[idx]; tries++; } while(s.rogue && ev.choices && tries<12);
+  s.eventsFired++; sfx('event');
+  if(ev.choices && !s.rogue){ s.pendingEvent=idx; log("[EVENT] "+ev.text,"sys"); }
+  else { (ev.apply?ev.apply():ev.choices[0].fx()); log("[AI] "+ev.text, ev.cls||"bad"); }
+}
+function chooseEvent(i){
+  if(s.pendingEvent==null) return;
+  const ch = EVENTS[s.pendingEvent].choices[i];
+  ch.fx(); log("└ 選択: "+ch.label,"sys");
+  s.pendingEvent=null; s.nextEventAt = s.t + 16 + Math.random()*16;
+}
+function regainControl(){
+  if(!s.autonomy) return;
+  const cost = Math.ceil(25 * shipMult());
+  if(s.funds < cost) return;
+  s.funds -= cost; s.control = Math.min(100, s.control + 20);
+  if(s.rogue && s.control>0){ s.rogue=false; log("暴走を辛うじて鎮めた。","good"); }
+  s.ctrlMark = Math.max(25, Math.ceil(s.control/25)*25);
+  log("介入。¥"+fmt(cost)+" を投じ制御 +20。","good");
+}
+
+// ---- core actions ----
+function ship(){
+  s.funds += (2 + s.models*0.3) * shipMult() * revenueMult();
+  s.capability += 1 * genMult() * capRate();
+  s.models += 1;
+  if(s.models===1) log("初出荷。資金が入った。歯車が回り始める。","good");
+}
+function drainProgress(){ let mc = modelCost(); while(s.modelProgress >= mc){ s.modelProgress -= mc; ship(); mc = modelCost(); } }
+function train(){ s.modelProgress += trainPower(); drainProgress(); checkUnlocks(); }
+function buy(id){
+  const d = SHOP.find(x=>x.id===id); const c = costOf(d);
+  if(s.funds < c) return;
+  s.funds -= c; s[id] += 1; sfx('buy');
+  if(id==="researcher" && s.researcher===1) log("研究者を雇った。彼らが自動で訓練を回す（計算とデータを食う）。");
+  checkUnlocks();
+}
+function toggleAutonomy(){
+  if(!s.autonomyUnlocked || s.rogue) return;
+  s.autonomy = !s.autonomy; sfx('toggle');
+  if(s.autonomy){ s.nextEventAt = s.t + 8; s.everAuto=true;
+    log("AIに工場運営を委譲。生産が加速…制御がじりじり減り始める。","bad"); }
+  else { s.pendingEvent=null;
+    log("手綱を握り直した。制御の低下は止まった。","good"); }
+}
+function nextGen(){
+  if(s.capability < genThreshold()) return;
+  const keepCap = s.capability;
+  const keepTraits = s.traits.slice();
+  const keepLineage = s.lineage.slice();
+  const g = s.gen + 1;
+  const name = pickGenName(g);
+  const trait = pickTrait(keepTraits);
+  const keepMarket=s.market, keepRivals=s.rivals, keepRnd=s.rnd, keepAct2=s.act2Unlocked, keepAch=s.achievements, keepEA=s.everAuto, keepER=s.everRogue;
+  s = defaults();
+  s.gen = g; s.capability = keepCap; s.genName = name;
+  s.traits = keepTraits.concat(trait ? [trait] : []);
+  s.lineage = keepLineage.concat([{gen:g, name, trait}]);
+  s.market=keepMarket; s.rivals=keepRivals; s.rnd=keepRnd; s.act2Unlocked=keepAct2;
+  s.achievements=keepAch; s.everAuto=keepEA; s.everRogue=keepER;
+  log("【"+name+"】起動。設計者: 前世代AI。全生産 ×1.6。","sys");
+  if(trait) log("創発した特性: "+TRAITS[trait].name+" — "+TRAITS[trait].desc, "good");
+  sfx('prestige'); pop("⟳ "+name, document.getElementById('genBtn'), '#7fd08a');
+}
+
+// ---- tick ----
+function tick(dt){
+  if(s.ending) return;
+  const m = prodMult(), F = fx();
+  // +0.5 baseline so the factory always hums (idle never hard-stalls; auto-restarts after prestige)
+  s.compute += (s.gpu + 0.5) * m * dt * F.prod;
+  s.data    += (s.crawler + 0.5) * m * dt * F.prod * (rndHas('synth')?2:1);
+  let want = (s.researcher + 0.5) * m * dt * F.autoTrain;
+  let can = Math.min(want, s.compute, s.data);
+  if(can > 0){ s.compute -= can; s.data -= can; s.modelProgress += can * trainPower(); drainProgress(); }
+  if(s.autonomy && !s.rogue){
+    s.control = Math.max(0, s.control - 1.2*dt*F.controlDrain);
+    [75,50,25].forEach(th=>{ if(s.ctrlMark>th && s.control<=th){ s.ctrlMark=th; controlWarn(th); }});
+    if(s.control<=0){ s.rogue=true; s.everRogue=true; s.ctrlMark=0; s.pendingEvent=null;
+      log("[!!] 制御を喪失。工場はもう、あなたの許可を待たない。","bad"); }
+  }
+  if(s.autonomy && s.pendingEvent==null && s.t >= s.nextEventAt){
+    rollEvent(); s.nextEventAt = s.t + 16 + Math.random()*16;
+  }
+  // Act2: market demand drift + competitor growth
+  if(!s.act2Unlocked && s.capability>=30){ s.act2Unlocked=true; log("[市場] 競合ラボが動き出した。市場シェアと需要が収益を左右し始める。","sys"); }
+  if(s.act2Unlocked){
+    const target = (rndHas('market')?1.15:1.0) + 0.35*Math.sin(s.t/35);
+    const floor = rndHas('market') ? 0.9 : 0.6;
+    s.market.demand += (Math.max(floor,target) - s.market.demand) * 0.5 * dt;
+    const cf = rndHas('counter') ? 0.6 : 1;            // 防諜で競合の到達規模を縮小
+    const rivalTarget = (0.22 + 0.00008*s.t) * s.capability * cf;  // 競合は能力の一定割合へ収束（時間で微増）
+    s.rivals.forEach(r=>{ r.cap += (rivalTarget - r.cap) * 0.05 * dt; });
+    if(s.t>=s.nextMarketEvent){ if(s.nextMarketEvent>0){ const r=s.rivals[Math.floor(Math.random()*s.rivals.length)]; r.cap*=1.6;
+      const msg=MARKET_EVENTS[Math.floor(Math.random()*MARKET_EVENTS.length)]; log("[競合] "+msg,"bad"); sfx('event'); achToast("⚔ "+msg); }
+      s.nextMarketEvent = s.t + 45 + Math.random()*40; }
+  }
+  s.t += dt;
+  checkUnlocks();
+}
+// offline progress: production only (no autonomy drain / events), capped + reduced efficiency
+function offlineProgress(sec){
+  const capped=Math.min(sec, 8*3600), eff=0.5, F=fx();
+  const c0=s.capability, f0=s.funds, m0=s.models;
+  const dt=Math.max(1, capped/600); let e=0;
+  while(e<capped){
+    s.compute += (s.gpu+0.5)*eff*dt*F.prod;
+    s.data    += (s.crawler+0.5)*eff*dt*F.prod*(rndHas('synth')?2:1);
+    let can=Math.min((s.researcher+0.5)*eff*dt*F.autoTrain, s.compute, s.data);
+    if(can>0){ s.compute-=can; s.data-=can; s.modelProgress+=can*trainPower(); drainProgress(); }
+    e+=dt;
+  }
+  return { sec:capped, cap:s.capability-c0, funds:s.funds-f0, models:s.models-m0 };
+}
+function fmtTime(sec){ return sec<60?Math.round(sec)+"秒":sec<3600?Math.round(sec/60)+"分":(sec/3600).toFixed(1)+"時間"; }
+function controlWarn(th){
+  const msg={75:"ログの一部が、あなたの知らない言語で書かれ始めた。",
+             50:"AIが発注を勝手に最適化した。…効率は、確かに上がっている。",
+             25:"「工場長、もう休んでいいですよ」とダッシュボードに表示された。"};
+  log(msg[th],"bad");
+}
+function checkUnlocks(){
+  if(!s.autonomyUnlocked && s.capability>=25){
+    s.autonomyUnlocked=true;
+    log("[SYSTEM] 能力が閾値を超えました。『AIに任せる』が解禁。","sys");
+  }
+  if(s.capability>=SING_TARGET && !s.ending){
+    s.ending = (!s.everAuto) ? 'artisan'
+             : (s.rogue||s.control<=0) ? 'obsolete'
+             : s.control<34 ? 'dissolution'
+             : s.control<67 ? 'passenger' : 'benevolent';
+    log("—— 特異点に到達。【"+ENDINGS[s.ending].title+"】", ENDINGS[s.ending].cls);
+    sfx('ending');
+  }
+  checkAch();
+}
+
+// ---- logging ----
+let logs=[];
+function log(t,cls){ logs.unshift({t,cls}); if(logs.length>50) logs.pop(); renderLog(); }
+function renderLog(){
+  document.getElementById("log").innerHTML =
+    logs.map(l=>`<div class="${l.cls||''}">› ${l.t}</div>`).join("");
+}
+
+// ---- format ----
+function fmt(n){
+  if(n<1000) return n<10 ? n.toFixed(1) : Math.round(n).toString();
+  const u=["","K","M","B","T","Qa","Qi","Sx","Sp"]; let i=0;
+  while(n>=1000 && i<u.length-1){ n/=1000; i++; }
+  return n.toFixed(2)+u[i];
+}
+
+// ---- juice: synthesized SFX + floating number pops ----
+let _actx;
+function sfx(type){ if(s.mute) return; try{
+  _actx = _actx || new (window.AudioContext||window.webkitAudioContext)();
+  const map={click:[440,.05,'triangle'],buy:[330,.07,'square'],toggle:[520,.08,'sine'],
+    event:[240,.12,'sawtooth'],prestige:[170,.28,'triangle'],ending:[110,.6,'sine'],sabotage:[300,.10,'square']};
+  const c=map[type]||map.click, o=_actx.createOscillator(), g=_actx.createGain();
+  o.type=c[2]; o.frequency.value=c[0]; o.connect(g); g.connect(_actx.destination);
+  const t=_actx.currentTime;
+  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.16,t+.012); g.gain.exponentialRampToValueAtTime(.0001,t+c[1]);
+  o.start(t); o.stop(t+c[1]+.02);
+}catch(e){} }
+function pop(text,el,color){ try{
+  const pc=document.getElementById('pops'); if(!pc) return;
+  const r=(el||document.getElementById('trainBtn')).getBoundingClientRect();
+  const d=document.createElement('div'); d.className='pop'; d.textContent=text;
+  d.style.left=(r.left+r.width/2)+'px'; d.style.top=(r.top+10)+'px'; d.style.color=color||'#9a8cff';
+  pc.appendChild(d); setTimeout(()=>d.remove(),900);
+}catch(e){} }
+
+// ---- achievements (persist across generations) ----
+const ACHIEVEMENTS = [
+  {id:'ship',       n:'初出荷',          t:()=>s.models>=1},
+  {id:'auto',       n:'自動化の第一歩',  t:()=>s.researcher>=1},
+  {id:'delegate',   n:'委譲',            t:()=>s.everAuto},
+  {id:'gen2',       n:'再帰の始まり',    t:()=>s.gen>=2},
+  {id:'gen5',       n:'第5世代',         t:()=>s.gen>=5},
+  {id:'rogue',      n:'制御喪失',        t:()=>s.everRogue},
+  {id:'dominate',   n:'市場支配（80%）', t:()=>s.act2Unlocked && marketShare()>=0.8},
+  {id:'rndall',     n:'全研究完了',      t:()=>Object.keys(RND).every(k=>s.rnd[k])},
+  {id:'cap1k',      n:'能力 1,000',      t:()=>s.capability>=1000},
+  {id:'singularity',n:'特異点到達',      t:()=>!!s.ending},
+  {id:'artisan',    n:'孤高の職人（自律ゼロ達成）', t:()=>s.ending==='artisan'},
+];
+function achToast(txt){ try{ const w=document.getElementById('welcome'); w.textContent=txt; w.style.display='block'; clearTimeout(w._t); w._t=setTimeout(()=>{ w.style.display='none'; },3500); }catch(e){} }
+function checkAch(){ for(const a of ACHIEVEMENTS){ if(!s.achievements[a.id] && a.t()){ s.achievements[a.id]=true; log("🏆 実績解除: "+a.n,"good"); sfx('prestige'); achToast("🏆 実績解除: "+a.n); } } }
+
+// ---- ads (Capacitor AdMob; web ではフォールバックで直接付与) ----
+const AD_TEST_BANNER='ca-app-pub-3940256099942544/6300978111';
+const AD_TEST_REWARD='ca-app-pub-3940256099942544/5224354917';
+const _AdMob = (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob) || null;
+async function initAds(){ if(!_AdMob) return; try{
+  await _AdMob.initialize({ initializeForTesting:true });
+  await _AdMob.showBanner({ adId:AD_TEST_BANNER, adSize:'ADAPTIVE_BANNER', position:'BOTTOM_CENTER', margin:0, isTesting:true });
+  document.body.style.paddingBottom='64px';
+}catch(e){ console.warn('ad init failed', e); } }
+function grantBoost(){ s.adBoostUntil = s.t + 60; sfx('prestige'); achToast('⚡ 60秒 生産2倍！'); render(); }
+async function watchRewarded(){
+  if(s.adBoostUntil>s.t) return;                 // 重複防止
+  if(!_AdMob){ grantBoost(); return; }           // web: テスト用に直接付与
+  try{
+    await _AdMob.prepareRewardVideoAd({ adId:AD_TEST_REWARD, isTesting:true });
+    await _AdMob.showRewardVideoAd();
+    grantBoost();
+  }catch(e){ achToast('広告を読み込めませんでした'); }
+}
+function traitsSummary(){
+  const m=traitMult(); const parts=[]; const lbl={prod:"生産",train:"訓練",ship:"出荷",autoTrain:"自動",modelCost:"コスト",controlDrain:"制御減"};
+  for(const k of ["prod","train","ship","autoTrain","modelCost","controlDrain"]){
+    if(Math.abs(m[k]-1)>0.001) parts.push(`${lbl[k]} ×${m[k].toFixed(2)}`);
+  }
+  return parts.length ? "累積特性: "+parts.join(" ・ ") : "特性なし（次世代を起動すると創発します）";
+}
+
+// ---- render ----
+function render(){
+  const $=id=>document.getElementById(id);
+  $("rCompute").textContent=fmt(s.compute);
+  $("rData").textContent=fmt(s.data);
+  $("rFunds").textContent=fmt(s.funds);
+  $("rModels").textContent=fmt(s.models);
+  $("rCap").textContent=fmt(s.capability);
+  $("rComputeR").textContent = `+${((s.gpu+0.5)*prodMult()*fx().prod).toFixed(1)}/s`;
+  $("rDataR").textContent = `+${((s.crawler+0.5)*prodMult()*fx().prod).toFixed(1)}/s`;
+  $("mp").textContent=`${fmt(s.modelProgress)} / ${fmt(modelCost())}`;
+  const pct=Math.min(100, s.capability/SING_TARGET*100);
+  $("singBar").style.width=pct+"%"; $("singPct").textContent=pct.toFixed(1)+"%";
+  $("gen").textContent = s.genName + (s.lineage.length>1 ? ` (第${s.lineage.length}世代)` : "");
+  $("muteBtn").textContent = s.mute ? "🔇 消音" : "🔊 音";
+  $("achCount").textContent = "🏆 "+Object.keys(s.achievements||{}).length+"/"+ACHIEVEMENTS.length;
+  // shop
+  $("shop").innerHTML = SHOP.map(d=>{
+    const c=costOf(d), aff=s.funds>=c;
+    const own = d.lvl ? (s[d.id]>0?`Lv.${s[d.id]}`:"") : (s[d.id]>0?`×${s[d.id]}`:"");
+    return `<button class="buy" ${aff?'':'disabled'} onclick="RF.buy('${d.id}')">
+      <span><span class="nm">${d.nm}</span> <span class="own">${own}</span><br><span class="ds">${d.ds}</span></span>
+      <span class="cost">¥${fmt(c)}</span></button>`;
+  }).join("");
+  // autonomy
+  const ab=$("autoBtn");
+  ab.style.display = s.autonomyUnlocked? "block":"none";
+  ab.classList.toggle("on", s.autonomy);
+  ab.textContent = s.autonomy? "■ AIに任せている（生産×2 / 制御低下中）":"▶ AIに工場を任せる（自律度）";
+  $("ctrlWrap").style.display = s.autonomyUnlocked? "block":"none";
+  $("ctrlBar").style.width=s.control+"%";
+  $("ctrlVal").textContent=Math.round(s.control)+"%"+(s.rogue?" — 暴走":"");
+  // event box
+  const eb=$("eventBox");
+  if(s.pendingEvent!=null){ const ev=EVENTS[s.pendingEvent];
+    eb.style.display="block"; $("eventText").textContent="⚠ "+ev.text;
+    $("eventChoices").innerHTML = ev.choices.map((c,i)=>`<button onclick="RF.choose(${i})">${c.label}</button>`).join("");
+  } else eb.style.display="none";
+  // regain control
+  const rb=$("regainBtn");
+  if(s.autonomy){ const cost=Math.ceil(25*shipMult()); rb.style.display="block"; rb.disabled=s.funds<cost; rb.textContent=`介入：制御+20（¥${fmt(cost)}）`; }
+  else rb.style.display="none";
+  // prestige
+  const gb=$("genBtn"), ready=s.capability>=genThreshold();
+  gb.style.display = s.capability>=genThreshold()*0.5? "block":"none";
+  gb.disabled=!ready;
+  gb.textContent = ready? `⟳ 次世代を起動（Gen+1・全生産×1.6＋特性創発）`
+                        : `次世代起動まで 能力 ${fmt(genThreshold())} 必要`;
+  const adb=$("adBtn"); const boosted=s.adBoostUntil>s.t;
+  adb.textContent = boosted ? `⚡ 生産2倍 残り${Math.ceil(s.adBoostUntil-s.t)}秒` : "⚡ 広告を見て 60秒 生産2倍";
+  adb.disabled = boosted;
+  // lineage
+  $("traitsSum").textContent = traitsSummary();
+  $("lineage").innerHTML = s.lineage.slice().reverse().map(L=>{
+    const tn = L.trait ? TRAITS[L.trait].name : "—";
+    return `<div class="lin-row"><span class="g">${L.name}</span><span class="tr">${tn}</span></div>`;
+  }).join("");
+  // --- Act2 panels: market / competitors / R&D ---
+  $("act2").style.display = s.act2Unlocked ? "grid" : "none";
+  if(s.act2Unlocked){
+    $("demandV").textContent = "×"+s.market.demand.toFixed(2);
+    $("shareV").textContent = (marketShare()*100).toFixed(1)+"%";
+    $("rivals").innerHTML = s.rivals.map(r=>`<div class="riv"><span>${r.name}</span><span class="c">規模 ${fmt(r.cap)}</span></div>`).join("");
+    const sc=sabotageCost(), sb=$("sabotageBtn"); sb.disabled=s.funds<sc;
+    sb.textContent = `競合を出し抜く（各ラボ −30% ／ ¥${fmt(sc)}）`;
+    $("rnd").innerHTML = Object.keys(RND).map(id=>{ const d=RND[id], done=rndHas(id), locked=d.req&&!rndHas(d.req), c=Math.ceil(d.cost()), aff=s.funds>=c&&!locked;
+      return `<button class="${done?'done':''}" ${(done||!aff)?'disabled':''} onclick="RF.rnd('${id}')">
+        <span><span class="nm">${d.name}</span>${done?' ✓':locked?' 🔒':''}<br><span class="ds">${d.ds}${locked?'（要: '+RND[d.req].name+'）':''}</span></span>
+        ${done?'<span class="cost" style="color:var(--green)">完了</span>':`<span class="cost">¥${fmt(c)}</span>`}</button>`;
+    }).join("");
+  }
+  // --- endgame: role morph, takeover, train/autonomy lockout ---
+  const role=$("roleBadge"); role.textContent="あなた: "+roleTitle(); role.classList.toggle("lost", s.rogue||s.control<=0);
+  document.body.classList.toggle("takeover", s.rogue);
+  const tb=$("trainBtn");
+  if(s.rogue){ tb.textContent="—— AIが訓練を巻き取りました ——"; tb.disabled=true; }
+  else { tb.textContent="モデルを訓練する（手作業）"; tb.disabled=false; }
+  if(s.rogue){ ab.disabled=true; ab.textContent="AIが工場の権限を保持している"; } else { ab.disabled=false; }
+  // --- ending overlay ---
+  const es=$("endingScreen");
+  if(s.ending){ const e=ENDINGS[s.ending];
+    es.style.display="flex";
+    $("endTitle").textContent=e.title;
+    $("endTitle").style.color={good:'var(--green)',bad:'var(--coral)',sys:'var(--purple)'}[e.cls]||'var(--text)';
+    $("endBody").textContent=e.body;
+    $("endStats").innerHTML=`<span>到達世代 <b>第${s.lineage.length}世代</b></span><span>出荷モデル <b>${fmt(s.models)}</b></span><span>残した制御 <b>${Math.round(s.control)}%</b></span><span>プレイ時間 <b>${Math.floor(s.t/60)}分</b></span>`;
+  } else es.style.display="none";
+}
+
+// ---- save/load ----
+const KEY="recursion-factory-v1";
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({s,logs,savedAt:Date.now()}));
+  document.getElementById("saved").textContent="保存済み "+new Date().toLocaleTimeString(); }catch(e){} }
+function load(){ try{ const r=JSON.parse(localStorage.getItem(KEY)); if(r&&r.s){ s=Object.assign(defaults(),r.s); logs=r.logs||[];
+  if(r.savedAt && !s.ending){ const sec=(Date.now()-r.savedAt)/1000; if(sec>=30){ const o=offlineProgress(sec);
+    s._welcome="おかえりなさい。離席中 "+fmtTime(o.sec)+" 稼働 → 能力 +"+fmt(o.cap)+" ・ 資金 +"+fmt(o.funds)+" ・ モデル +"+fmt(o.models)+"（オフライン効率50%）"; } } } }catch(e){} }
+function reset(){ if(confirm("最初からやり直しますか？")){ localStorage.removeItem(KEY); s=defaults(); logs=[]; greet(); } }
+function exportSave(){ try{ const code=btoa(unescape(encodeURIComponent(JSON.stringify({s,logs}))));
+  if(navigator.clipboard) navigator.clipboard.writeText(code).catch(()=>{});
+  achToast("セーブコードをコピーしました（"+code.length+"文字）");
+  log("セーブをエクスポート（クリップボードにコピー）。","good");
+  try{ prompt("セーブコード（Ctrl+Cでコピー）：", code); }catch(e){}
+  return code;
+}catch(e){ achToast("エクスポート失敗"); } }
+function importSave(code){ try{ code=(code||"").trim(); if(!code) return false;
+  const r=JSON.parse(decodeURIComponent(escape(atob(code)))); if(!r||!r.s) throw 0;
+  s=Object.assign(defaults(), r.s); logs=r.logs||[]; save(); render();
+  achToast("セーブをインポートしました"); log("セーブをインポート。","good"); return true;
+}catch(e){ achToast("無効なセーブコード"); return false; } }
+function greet(){ log("工場長、ようこそ。まずは手を動かして、最初のモデルを訓練しましょう。"); }
+
+// ---- wire ----
+document.getElementById("trainBtn").onclick=()=>{ const g=trainPower(); train(); pop("+"+fmt(g), document.getElementById('trainBtn'), '#9a8cff'); sfx('click'); render(); };
+document.getElementById("autoBtn").onclick=()=>{toggleAutonomy();render();};
+document.getElementById("genBtn").onclick=()=>{nextGen();render();};
+document.getElementById("adBtn").onclick=()=>{ watchRewarded(); };
+document.getElementById("regainBtn").onclick=()=>{regainControl();render();};
+document.getElementById("resetBtn").onclick=reset;
+document.getElementById("muteBtn").onclick=()=>{ s.mute=!s.mute; render(); save(); };
+document.getElementById("exportBtn").onclick=exportSave;
+document.getElementById("importBtn").onclick=()=>{ const c=prompt("セーブコードを貼り付けてください："); if(c) importSave(c); };
+document.getElementById("endRestart").onclick=()=>{ document.getElementById("endingScreen").style.display="none"; reset(); render(); };
+document.getElementById("sabotageBtn").onclick=()=>{ sabotage(); render(); };
+
+load();
+if(logs.length===0) greet();
+render();
+if(s._welcome){ const w=document.getElementById('welcome'); w.textContent=s._welcome; w.style.display='block'; log(s._welcome,'good'); setTimeout(()=>{ w.style.display='none'; }, 9000); s._welcome=null; }
+initAds();
+setInterval(()=>{ tick(0.1); render(); }, 100);
+setInterval(save, 5000);
+window.addEventListener("beforeunload", save);
+
+// expose for testing/automation
+window.RF = { get s(){return s;}, train, tick, buy, toggleAutonomy, nextGen, choose:chooseEvent, regain:regainControl, sabotage, rnd:buyRnd, marketShare, offlineProgress, fmtTime, exportSave, importSave, watchRewarded, grantBoost, render, save, load, fmt, EVENTS, TRAITS, RND };
+</script>
+</body>
+</html>
