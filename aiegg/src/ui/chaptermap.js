@@ -28,7 +28,7 @@ export function renderChapterMap(host, stages, progress, onSelect, onReset, getB
 
   host.innerHTML = `
     <div class="nn-home-inner">
-      <div class="nn-home-title">📒 NeuroNote</div>
+      <div class="nn-home-title">📒 AIのたまご</div>
       <div class="nn-home-sub">${t("homeSub")}</div>
       <div class="nn-home-progress">${progressLabel}${allClear ? t("homeAllClear") : ""}</div>
       <div class="nn-chgrid">${cards}</div>

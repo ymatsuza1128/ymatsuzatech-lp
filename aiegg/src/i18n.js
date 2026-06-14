@@ -46,7 +46,7 @@ const UI = {
   glossTitle: { ja: "用語集", en: "Glossary" },
   glossLocked: { ja: "（未習得）", en: "(locked)" },
   close: { ja: "閉じる", en: "Close" },
-  homeSub: { ja: "ニューロンを育てる学習ノート ― 1個のニューロンから、手書き数字の認識まで", en: "A notebook for growing neurons — from a single neuron to reading handwritten digits" },
+  homeSub: { ja: "ニューロンを育てて、AIを孵そう", en: "Hatch and grow a real neural network." },
   homeAllClear: { ja: "　🎓 全章制覇！", en: "  🎓 All chapters complete!" },
   reset: { ja: "最初から（進捗リセット）", en: "Reset progress" },
   drawTitle: { ja: "✏️ 自分で数字を描いてみよう", en: "✏️ Draw a digit yourself" },

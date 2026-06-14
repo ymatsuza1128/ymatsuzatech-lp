@@ -1,7 +1,7 @@
 {
-  "name": "NeuroNote",
-  "short_name": "NeuroNote",
-  "description": "Watch a real neural network learn — from a single neuron to reading handwritten digits.",
+  "name": "AIのたまご",
+  "short_name": "AIのたまご",
+  "description": "ニューロンを育てて、AIを孵そう。本物のニューラルネットが学習する様子を眺めて、用語まで学べるゲーム。1個のニューロンから手書き数字の認識まで。",
   "lang": "ja",
   "start_url": "./index.html",
   "scope": "./",
