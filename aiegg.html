@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>AIのたまご — ニューロンを育てて、AIを孵そう。</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="AIのたまごは、本物のニューラルネットが学習する様子を眺めて、用語まで学べる教育ゲーム。1個のニューロンから、活性化・損失・勾配降下・誤差逆伝播を経て、8×8の手書き数字認識まで。完全オフライン・広告なし。ブラウザですぐ遊べます。" />
+<meta property="og:title" content="AIのたまご" />
+<meta property="og:description" content="本物のニューラルネットが目の前で学ぶ。1個のニューロンから手書き数字認識まで、眺めて用語まで学べる教育ゲーム。完全オフライン・広告なし。" />
+<meta property="og:image" content="https://ymatsuzatech.com/images/aiegg-feature.png" />
+<meta property="og:url" content="https://ymatsuzatech.com/aiegg.html" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AIのたまご" />
+<meta name="twitter:description" content="本物のニューラルネットが目の前で学ぶ。1個のニューロンから手書き数字認識まで、眺めて用語まで学べる教育ゲーム。" />
+<meta name="twitter:image" content="https://ymatsuzatech.com/images/aiegg-feature.png" />
+<link rel="canonical" href="https://ymatsuzatech.com/aiegg.html" />
+<link rel="icon" type="image/svg+xml" href="aiegg/icon.svg" />
+<link rel="stylesheet" href="assets/styles.css" />
+<script>
+  (function () {
+    try {
+      var s = localStorage.getItem('gitmd-lang');
+      if (s === 'en' || s === 'ja') {
+        document.documentElement.setAttribute('data-lang', s);
+        document.documentElement.setAttribute('lang', s);
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<nav class="lang-switch" aria-label="Language / 言語">
+  <button type="button" data-lang="ja">日本語</button>
+  <button type="button" data-lang="en">English</button>
+</nav>
+
+<!-- ===================== 日本語 ===================== -->
+<div class="lang-content" lang="ja">
+
+<header class="hero">
+  <div class="container">
+    <img class="logo" src="aiegg/icon.svg" alt="AIのたまご アプリアイコン" />
+    <h1>AIのたまご</h1>
+    <p class="tagline">ニューロンを育てて、AIを孵そう。</p>
+    <p class="platforms" aria-label="対応プラットフォーム">
+      <span>Web</span><span>PWA</span><span>オフライン対応</span>
+    </p>
+    <p class="lede">
+      飾りの演出ではありません。<strong>本物のニューラルネット</strong>が、あなたの目の前で学習します。
+      ニューロン1個から始めて、活性化関数・損失・勾配降下・隠れ層・<strong>誤差逆伝播</strong>と一歩ずつ進み、
+      最後は<strong>8×8の手書き数字</strong>を当てるところまで。毎章の決断はたったひとつ。眺めているうちに、用語まで自然と身につきます。
+    </p>
+    <p class="cta">
+      <a class="btn primary" href="aiegg/">ブラウザで遊ぶ</a>
+    </p>
+  </div>
+</header>
+
+<section class="features">
+  <div class="container">
+    <h2>どんなアプリ？</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>本物のネットが、目の前で学ぶ</h3>
+        <p>誤差逆伝播も勾配降下も<strong>ちゃんと実装</strong>（勾配は数値微分で検証済み）。重みが更新され、<strong>決定境界が動く</strong>様子をそのまま眺められます。</p>
+      </div>
+      <div class="card">
+        <h3>1個のニューロンから、手書き数字まで</h3>
+        <p>全7章。ニューロン1個 → 活性化関数 → 損失と勾配降下 → 隠れ層 → 誤差逆伝播 → 過学習と汎化 → <strong>8×8手書き数字の認識</strong>。少しずつ“本物”へ。</p>
+      </div>
+      <div class="card">
+        <h3>1ステージ、1つの決断</h3>
+        <p>学習率は？ 隠れ層は何個？——選ぶのは毎章ひとつだけ。<strong>収束・発散・過学習</strong>をその場で観察して、頭ではなく手で覚えます。</p>
+      </div>
+      <div class="card">
+        <h3>用語が、自然と身につく</h3>
+        <p>損失・勾配降下・活性化・逆伝播・過学習・<strong>汎化</strong>…。専門用語はその場で<strong>用語集カード</strong>で確認。眺めるうちに言葉が腑に落ちる。</p>
+      </div>
+      <div class="card">
+        <h3>完全オフライン・広告なし</h3>
+        <p>ネット通信なし、アカウント不要、<strong>広告なし・解析なし</strong>。進捗も、育てた“脳”も、全部あなたの端末の中だけ。</p>
+      </div>
+      <div class="card">
+        <h3>日本語／English・教科書スタイル</h3>
+        <p>二言語をいつでも切り替え。方眼紙のような落ち着いた<strong>レトロ教科書</strong>調で、長く眺めても疲れない。PWAでホーム画面にも追加できます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screenshots">
+  <div class="container">
+    <h2>画面イメージ</h2>
+    <div class="gallery">
+      <img src="images/aiegg-shot-1.png" alt="章マップ：全7章のチャプター一覧" />
+      <img src="images/aiegg-shot-2.png" alt="第4章：隠れ層の決定境界とネットワーク図" />
+      <img src="images/aiegg-shot-3.png" alt="第7章：手書き数字「0」を95%で認識（正解）" />
+      <img src="images/aiegg-shot-4.png" alt="第7章：損失と正解率の学習曲線、用語「汎化」" />
+    </div>
+  </div>
+</section>
+
+<section id="play-ja" class="download">
+  <div class="container">
+    <h2>遊ぶ・入手する</h2>
+    <div class="dl-grid">
+      <div class="dl-card">
+        <h3>ブラウザ（今すぐ）</h3>
+        <p>ダウンロード不要。スマホでもPCでも、その場で遊べます。PWA対応なのでホーム画面に追加してオフラインでも。</p>
+        <p style="margin-top:12px;"><a class="btn primary" href="aiegg/">ブラウザで遊ぶ</a></p>
+      </div>
+      <div class="dl-card">
+        <h3>Android</h3>
+        <p>Android アプリ版を<strong>準備中</strong>です。公開前の先行テスター参加をご希望の方は <a href="mailto:ymatsuza.tech@gmail.com?subject=AIのたまご%20テスター希望">ymatsuza.tech@gmail.com</a> までご連絡ください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="donate">
+  <div class="container">
+    <h2>開発を支援する</h2>
+    <p>AIのたまごは個人開発の無料アプリです。気に入っていただけたらサポートをいただけると励みになります。</p>
+    <p style="margin-top:20px;">
+      <a class="btn primary" href="https://github.com/sponsors/ymatsuza1128">GitHub Sponsors</a>
+      <a class="btn ghost" href="https://paypal.me/ymatsuza">PayPal</a>
+    </p>
+  </div>
+</section>
+
+<section class="privacy">
+  <div class="container">
+    <h2>データの扱い</h2>
+    <p>
+      学習の進捗・章ごとのベストスコア・設定・保存した“脳”（ネットワークの重み）は、すべて<strong>あなたの端末内</strong>（ブラウザの localStorage）に保存されます。
+      サーバーへの送信はありません。<strong>完全オフライン</strong>で動作し、<strong>広告・解析・トラッキングは一切なし</strong>。アカウント登録も不要です。
+      詳しくは<a href="aiegg-privacy.html">プライバシーポリシー</a>をご覧ください。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki</p>
+    <p>
+      <a href="aiegg-privacy.html">プライバシー</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="mailto:ymatsuza.tech@gmail.com">お問い合わせ</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+<!-- =================== /日本語 =================== -->
+
+<!-- ===================== English ===================== -->
+<div class="lang-content" lang="en">
+
+<header class="hero">
+  <div class="container">
+    <img class="logo" src="aiegg/icon.svg" alt="AI Egg app icon" />
+    <h1>AI Egg</h1>
+    <p class="tagline">Hatch and grow a real neural network.</p>
+    <p class="platforms" aria-label="Supported platforms">
+      <span>Web</span><span>PWA</span><span>Offline</span>
+    </p>
+    <p class="lede">
+      No fake animations — a <strong>real neural network</strong> learns right in front of you.
+      Start from a single neuron and move step by step through activations, loss, gradient descent, hidden layers, and
+      <strong>backpropagation</strong>, all the way to reading <strong>8×8 handwritten digits</strong>.
+      One decision per chapter — and the terminology sinks in as you watch.
+    </p>
+    <p class="cta">
+      <a class="btn primary" href="aiegg/">Play in browser</a>
+    </p>
+  </div>
+</header>
+
+<section class="features">
+  <div class="container">
+    <h2>What is it?</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>A real network, learning in front of you</h3>
+        <p>Real backpropagation and gradient descent (the math is <strong>numerically gradient-checked</strong>). Watch the weights update and the <strong>decision boundary move</strong>, for real.</p>
+      </div>
+      <div class="card">
+        <h3>From one neuron to handwritten digits</h3>
+        <p>Seven chapters: one neuron → activation → loss &amp; gradient descent → hidden layers → backprop → overfitting &amp; generalization → <strong>8×8 handwritten-digit recognition</strong>.</p>
+      </div>
+      <div class="card">
+        <h3>One decision per stage</h3>
+        <p>What learning rate? How many hidden neurons? Each chapter asks for exactly one choice — then you watch it <strong>converge, diverge, or overfit</strong> and learn it by hand.</p>
+      </div>
+      <div class="card">
+        <h3>Pick up the terminology, naturally</h3>
+        <p>Loss, gradient descent, activation, backprop, overfitting, <strong>generalization</strong>… Check any term on the spot with <strong>glossary cards</strong>. The words click as you watch.</p>
+      </div>
+      <div class="card">
+        <h3>Fully offline, no ads</h3>
+        <p>No network calls, no account, <strong>no ads, no analytics</strong>. Your progress and the &ldquo;brain&rdquo; you grew live only on your device.</p>
+      </div>
+      <div class="card">
+        <h3>Japanese / English, textbook style</h3>
+        <p>Switch languages anytime. A calm, graph-paper <strong>retro-textbook</strong> look that&rsquo;s easy on the eyes. Install it to your home screen as a PWA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screenshots">
+  <div class="container">
+    <h2>Screens</h2>
+    <div class="gallery">
+      <img src="images/aiegg-shot-1.png" alt="Chapter map: all seven chapters" />
+      <img src="images/aiegg-shot-2.png" alt="Chapter 4: hidden-layer decision boundary and network diagram" />
+      <img src="images/aiegg-shot-3.png" alt="Chapter 7: recognizing a handwritten 0 at 95% (correct)" />
+      <img src="images/aiegg-shot-4.png" alt="Chapter 7: loss and accuracy training curve, glossary term generalization" />
+    </div>
+  </div>
+</section>
+
+<section id="play-en" class="download">
+  <div class="container">
+    <h2>Play / get it</h2>
+    <div class="dl-grid">
+      <div class="dl-card">
+        <h3>Browser (right now)</h3>
+        <p>No download. Play instantly on phone or desktop. It&rsquo;s a PWA, so you can add it to your home screen and play offline.</p>
+        <p style="margin-top:12px;"><a class="btn primary" href="aiegg/">Play in browser</a></p>
+      </div>
+      <div class="dl-card">
+        <h3>Android</h3>
+        <p>The Android app is <strong>in preparation</strong>. To request early tester access before launch, email <a href="mailto:ymatsuza.tech@gmail.com?subject=AI%20Egg%20tester">ymatsuza.tech@gmail.com</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="donate">
+  <div class="container">
+    <h2>Support development</h2>
+    <p>AI Egg is a free, indie-built app. Sponsorships are greatly appreciated and help keep it going.</p>
+    <p style="margin-top:20px;">
+      <a class="btn primary" href="https://github.com/sponsors/ymatsuza1128">GitHub Sponsors</a>
+      <a class="btn ghost" href="https://paypal.me/ymatsuza">PayPal</a>
+    </p>
+  </div>
+</section>
+
+<section class="privacy">
+  <div class="container">
+    <h2>Your data</h2>
+    <p>
+      Your progress, per-chapter best scores, settings, and the saved &ldquo;brain&rdquo; (network weights) are all stored
+      <strong>on your device</strong> (browser localStorage). Nothing is sent to a server. The app runs <strong>fully offline</strong>
+      with <strong>no ads, no analytics, and no tracking</strong>, and no account is required.
+      See the <a href="aiegg-privacy.html">privacy policy</a> for details.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki</p>
+    <p>
+      <a href="aiegg-privacy.html">Privacy</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="mailto:ymatsuza.tech@gmail.com">Contact</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+<!-- =================== /English =================== -->
+
+<script>
+  (function () {
+    var html = document.documentElement;
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.lang-switch button'));
+    function syncButtons(l) {
+      btns.forEach(function (b) {
+        var on = b.getAttribute('data-lang') === l;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    function setLang(l) {
+      html.setAttribute('data-lang', l);
+      html.setAttribute('lang', l);
+      syncButtons(l);
+      try { localStorage.setItem('gitmd-lang', l); } catch (e) {}
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+    });
+    syncButtons(html.getAttribute('data-lang') || 'ja');
+  })();
+</script>
+
+</body>
+</html>
