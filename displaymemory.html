@@ -28,6 +28,31 @@
     } catch (e) {}
   })();
 </script>
+<style>
+  .dm-shot { max-width: 760px; margin: 0 auto; border-radius: 12px; overflow: hidden;
+             border: 1px solid var(--card-border); box-shadow: 0 10px 34px rgba(0, 0, 0, 0.22); background: #1e1e1e; }
+  .dm-shot .bar { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: #2d2d2d; }
+  .dm-shot .bar .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .dm-shot .bar .r { background: #ff5f57; } .dm-shot .bar .y { background: #febc2e; } .dm-shot .bar .g { background: #28c840; }
+  .dm-shot .bar .title { margin-left: 6px; color: #aaa; font-size: 12px; }
+  .dm-shot .head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #252526; border-bottom: 1px solid #333; }
+  .dm-shot .head .logo { color: #e8e8e8; font-weight: 600; font-size: 14px; white-space: nowrap; }
+  .dm-shot .head .search { flex: 1; padding: 7px 11px; border-radius: 6px; background: #1e1e1e; border: 1px solid #444; color: #7d7d7d; font-size: 13px; }
+  .dm-shot .head .count { color: #888; font-size: 12px; white-space: nowrap; }
+  .dm-shot .rows { padding: 8px 12px 14px; }
+  .dm-shot .row { display: flex; gap: 12px; padding: 8px; border-radius: 8px; align-items: flex-start; }
+  .dm-shot .row:nth-child(1) { background: #2a2d2e; }
+  .dm-shot .thumb { width: 118px; height: 72px; border-radius: 6px; flex: none; }
+  .dm-shot .meta { min-width: 0; }
+  .dm-shot .meta .t { color: #9ab; font-size: 12px; }
+  .dm-shot .meta .x { color: #dcdcdc; font-size: 13px; margin-top: 3px; line-height: 1.45; }
+  .dm-shot .s1 { background: linear-gradient(135deg, #1f6feb, #10233f); }
+  .dm-shot .s2 { background: linear-gradient(135deg, #3a3a3a, #1b1b1b); }
+  .dm-shot .s3 { background: linear-gradient(135deg, #6b4aa0, #241636); }
+  .dm-shot .s4 { background: linear-gradient(135deg, #15724a, #06281a); }
+  .dm-shot-cap { text-align: center; color: var(--muted); font-size: 0.9rem; margin-top: 14px; }
+  @media (max-width: 600px) { .dm-shot .thumb { width: 84px; height: 54px; } .dm-shot .head .logo { display: none; } }
+</style>
 </head>
 <body>
 
@@ -111,7 +136,17 @@
 <section class="screenshots">
   <div class="container">
     <h2>画面イメージ</h2>
-    <div class="shot-placeholder">スクリーンショットは準備中です。公開に向けて掲載します。</div>
+    <figure class="dm-shot" role="img" aria-label="DisplayMemory のタイムライン画面（サンプル）">
+      <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">DisplayMemory — timeline</span></div>
+      <div class="head"><span class="logo">📷 DisplayMemory</span><span class="search">キャプチャした文字を検索…</span><span class="count">128 / 128</span></div>
+      <div class="rows">
+        <div class="row"><div class="thumb s1"></div><div class="meta"><div class="t">2026年6月14日 16:32</div><div class="x">GitHub — Pull request「日本語OCRを検索可能に」CI 緑、main にマージ</div></div></div>
+        <div class="row"><div class="thumb s2"></div><div class="meta"><div class="t">2026年6月14日 15:48</div><div class="x">ターミナル — swift build 完了、テスト 71 件パス</div></div></div>
+        <div class="row"><div class="thumb s3"></div><div class="meta"><div class="t">2026年6月14日 14:05</div><div class="x">設計メモ — 端末内OCR から全文検索タイムラインへ</div></div></div>
+        <div class="row"><div class="thumb s4"></div><div class="meta"><div class="t">2026年6月14日 11:20</div><div class="x">ブラウザ — ymatsuzatech.com つくったアプリ 一覧</div></div></div>
+      </div>
+    </figure>
+    <p class="dm-shot-cap">タイムライン画面のイメージ（サンプル）。キャプチャは端末内にのみ保存されます。</p>
   </div>
 </section>
 
@@ -243,7 +278,17 @@
 <section class="screenshots">
   <div class="container">
     <h2>Screens</h2>
-    <div class="shot-placeholder">Screenshots are coming as we get closer to launch.</div>
+    <figure class="dm-shot" role="img" aria-label="DisplayMemory timeline (sample)">
+      <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">DisplayMemory — timeline</span></div>
+      <div class="head"><span class="logo">📷 DisplayMemory</span><span class="search">Search captured text…</span><span class="count">128 / 128</span></div>
+      <div class="rows">
+        <div class="row"><div class="thumb s1"></div><div class="meta"><div class="t">Jun 14, 2026 at 4:32 PM</div><div class="x">GitHub — Pull request &ldquo;Make Japanese OCR searchable&rdquo;, CI green, merged to main</div></div></div>
+        <div class="row"><div class="thumb s2"></div><div class="meta"><div class="t">Jun 14, 2026 at 3:48 PM</div><div class="x">Terminal — swift build complete, 71 tests passed</div></div></div>
+        <div class="row"><div class="thumb s3"></div><div class="meta"><div class="t">Jun 14, 2026 at 2:05 PM</div><div class="x">Design note — on-device OCR to a full-text searchable timeline</div></div></div>
+        <div class="row"><div class="thumb s4"></div><div class="meta"><div class="t">Jun 14, 2026 at 11:20 AM</div><div class="x">Browser — ymatsuzatech.com app list</div></div></div>
+      </div>
+    </figure>
+    <p class="dm-shot-cap">A sample of the timeline view. Captures are stored only on your device.</p>
   </div>
 </section>
 
