@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>DisplayMemory — 見た画面は、あとから検索できる。</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="DisplayMemory は、一定間隔で画面を自動キャプチャし、端末内のOCRで文字を読み取って全文検索できるタイムラインにするアプリ。「さっき見たあのページ」「あのエラー文」を時間をさかのぼって見つけられます。すべて端末内で処理。macOS / Windows、開発中。" />
+<meta property="og:title" content="DisplayMemory" />
+<meta property="og:description" content="画面を自動キャプチャ → 端末内OCR → 全文検索できるタイムライン。見た画面を、あとから検索。macOS / Windows、開発中。" />
+<meta property="og:image" content="https://ymatsuzatech.com/images/displaymemory-icon.svg" />
+<meta property="og:url" content="https://ymatsuzatech.com/displaymemory.html" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="DisplayMemory" />
+<meta name="twitter:description" content="画面を自動キャプチャ → 端末内OCR → 全文検索できるタイムライン。見た画面を、あとから検索。" />
+<meta name="twitter:image" content="https://ymatsuzatech.com/images/displaymemory-icon.svg" />
+<link rel="canonical" href="https://ymatsuzatech.com/displaymemory.html" />
+<link rel="icon" type="image/svg+xml" href="images/displaymemory-icon.svg" />
+<link rel="stylesheet" href="assets/styles.css" />
+<script>
+  (function () {
+    try {
+      var s = localStorage.getItem('gitmd-lang');
+      if (s === 'en' || s === 'ja') {
+        document.documentElement.setAttribute('data-lang', s);
+        document.documentElement.setAttribute('lang', s);
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<nav class="lang-switch" aria-label="Language / 言語">
+  <button type="button" data-lang="ja">日本語</button>
+  <button type="button" data-lang="en">English</button>
+</nav>
+
+<!-- ===================== 日本語 ===================== -->
+<div class="lang-content" lang="ja">
+
+<header class="hero">
+  <div class="container">
+    <img class="logo" src="images/displaymemory-icon.svg" alt="DisplayMemory アプリアイコン" />
+    <h1>DisplayMemory</h1>
+    <p class="tagline">見た画面は、あとから検索できる。</p>
+    <p class="platforms" aria-label="対応プラットフォーム">
+      <span>macOS</span><span>Windows</span><span>ローカル処理</span>
+    </p>
+    <p class="lede">
+      一定間隔で画面を自動キャプチャし、<strong>端末内のOCR</strong>で文字を読み取って、
+      <strong>全文検索できるタイムライン</strong>にします。「さっき見たあのページ」「あのエラー文」
+      「どこかで見た番号」を、記憶ではなく検索でたどれる。スクリーンショットの山ではなく、
+      <strong>探せる記憶</strong>に。
+    </p>
+    <p class="cta">
+      <a class="btn primary" href="mailto:ymatsuza.tech@gmail.com?subject=DisplayMemory%20公開のお知らせ希望">公開のお知らせを受け取る</a>
+      <a class="btn ghost" href="#status-ja">開発状況を見る</a>
+    </p>
+  </div>
+</header>
+
+<section class="features">
+  <div class="container">
+    <h2>DisplayMemory とは？</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>画面を自動でキャプチャ</h3>
+        <p>設定した間隔（数秒〜分単位）で、表示中の画面を静かに記録。手動のスクリーンショットは要りません。常駐したまま、見たものを取りこぼさない。</p>
+      </div>
+      <div class="card">
+        <h3>端末内OCRで全文検索</h3>
+        <p>キャプチャした画面の文字を、その場で読み取り（macOS は Vision、Windows は Windows OCR）。日本語・英語に対応し、<strong>画面に映っていた言葉</strong>で検索できます。</p>
+      </div>
+      <div class="card">
+        <h3>タイムラインでさかのぼる</h3>
+        <p>時系列に並んだサムネイルを遡って、「あのとき何を見ていたか」を一望。検索で絞り込み、その瞬間の画面そのものに戻れます。</p>
+      </div>
+      <div class="card">
+        <h3>すべて端末内・プライバシー第一</h3>
+        <p>キャプチャ画像も読み取ったテキストも、<strong>あなたの端末の中だけ</strong>に保存。既定ではどこのサーバーにも送りません。</p>
+      </div>
+      <div class="card">
+        <h3>軽量・常駐</h3>
+        <p>メニューバー（macOS）／システムトレイ（Windows）に常駐。普段は目立たず、必要なときにタイムラインを開く。</p>
+      </div>
+      <div class="card">
+        <h3>間隔・保存期間・除外を調整</h3>
+        <p>キャプチャ間隔、保存しておく期間、記録しないアプリ（除外）を自分で設定。容量と記憶のバランスを自分で決められます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="status-ja">
+  <div class="container">
+    <h2>開発状況</h2>
+    <p class="lede" style="margin-left:0;">DisplayMemory は現在開発中です。中核のしくみは動いていて、配布版を準備しています。</p>
+    <ul class="checklist">
+      <li><span class="ok">✓</span> 画面キャプチャ（macOS / Windows）</li>
+      <li><span class="ok">✓</span> 端末内OCR（日本語・英語ほか）</li>
+      <li><span class="ok">✓</span> 検索できるタイムライン</li>
+      <li><span class="soon">◷</span> 配布版（macOS / Windows）— 近日</li>
+      <li><span class="soon">◷</span> 設定UI（間隔・保存期間・除外アプリ）</li>
+      <li><span class="soon">◷</span> 任意のAI要約（自分のAPIキーを使用 / BYOK）</li>
+    </ul>
+    <p class="note">公開時期や進捗のお知らせを希望される方は、下の「お知らせを受け取る」からご連絡ください。</p>
+  </div>
+</section>
+
+<section class="screenshots">
+  <div class="container">
+    <h2>画面イメージ</h2>
+    <div class="shot-placeholder">スクリーンショットは準備中です。公開に向けて掲載します。</div>
+  </div>
+</section>
+
+<section id="get-ja" class="download">
+  <div class="container">
+    <h2>入手する</h2>
+    <div class="dl-grid">
+      <div class="dl-card">
+        <h3>近日公開</h3>
+        <p>macOS / Windows 版を開発中です。公開したらこのページでお知らせします。</p>
+        <p style="margin-top:12px;"><a class="btn primary" href="mailto:ymatsuza.tech@gmail.com?subject=DisplayMemory%20公開のお知らせ希望">公開のお知らせを受け取る</a></p>
+      </div>
+      <div class="dl-card">
+        <h3>お問い合わせ・テスター</h3>
+        <p>ご意見やテスター参加のご希望は <a href="mailto:ymatsuza.tech@gmail.com?subject=DisplayMemory%20お問い合わせ">ymatsuza.tech@gmail.com</a> までお気軽に。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="donate">
+  <div class="container">
+    <h2>開発を支援する</h2>
+    <p>DisplayMemory は個人開発のアプリです。気に入っていただけたらサポートをいただけると励みになります。</p>
+    <p style="margin-top:20px;">
+      <a class="btn primary" href="https://github.com/sponsors/ymatsuza1128">GitHub Sponsors</a>
+      <a class="btn ghost" href="https://paypal.me/ymatsuza">PayPal</a>
+    </p>
+  </div>
+</section>
+
+<section class="privacy">
+  <div class="container">
+    <h2>データの扱い</h2>
+    <p>
+      キャプチャした画像と読み取ったテキストは、<strong>あなたの端末内</strong>に保存されます。既定では外部のサーバーへ送信しません。
+      キャプチャ間隔・保存期間・記録しないアプリ（除外）はいつでも変更でき、保存したデータはあなた自身で削除できます。
+      任意のAI要約を有効にした場合のみ、<strong>あなたが設定したAPIキー</strong>で対象テキストが選んだAIサービスへ送られます（既定では無効）。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki</p>
+    <p>
+      <a href="privacy-policy.html">プライバシー</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="mailto:ymatsuza.tech@gmail.com">お問い合わせ</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+<!-- =================== /日本語 =================== -->
+
+<!-- ===================== English ===================== -->
+<div class="lang-content" lang="en">
+
+<header class="hero">
+  <div class="container">
+    <img class="logo" src="images/displaymemory-icon.svg" alt="DisplayMemory app icon" />
+    <h1>DisplayMemory</h1>
+    <p class="tagline">Everything you've seen, searchable later.</p>
+    <p class="platforms" aria-label="Supported platforms">
+      <span>macOS</span><span>Windows</span><span>On-device</span>
+    </p>
+    <p class="lede">
+      DisplayMemory quietly captures your screen at a set interval, reads the text with
+      <strong>on-device OCR</strong>, and turns it into a <strong>full-text searchable timeline</strong>.
+      That page you saw earlier, that error message, that number from somewhere — find it by searching,
+      not by remembering. Not a pile of screenshots: a <strong>memory you can search</strong>.
+    </p>
+    <p class="cta">
+      <a class="btn primary" href="mailto:ymatsuza.tech@gmail.com?subject=DisplayMemory%20launch%20notification">Get launch updates</a>
+      <a class="btn ghost" href="#status-en">See the status</a>
+    </p>
+  </div>
+</header>
+
+<section class="features">
+  <div class="container">
+    <h2>What is it?</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Automatic screen capture</h3>
+        <p>Records what's on screen at your chosen interval (seconds to minutes). No manual screenshots — it stays resident and never misses what you saw.</p>
+      </div>
+      <div class="card">
+        <h3>On-device OCR, full-text search</h3>
+        <p>Reads the text in each capture right on your machine (Vision on macOS, Windows OCR on Windows). Search by <strong>the words that were on your screen</strong>, in English, Japanese and more.</p>
+      </div>
+      <div class="card">
+        <h3>Scrub the timeline</h3>
+        <p>Walk back through time-ordered thumbnails to see what you were looking at. Filter by search and jump straight back to that exact screen.</p>
+      </div>
+      <div class="card">
+        <h3>On-device, privacy-first</h3>
+        <p>Both the captured images and the extracted text stay <strong>only on your device</strong>. By default nothing is sent to any server.</p>
+      </div>
+      <div class="card">
+        <h3>Lightweight &amp; resident</h3>
+        <p>Lives in the menu bar (macOS) or system tray (Windows). Out of the way until you want it — then open the timeline.</p>
+      </div>
+      <div class="card">
+        <h3>Tune interval, retention, exclusions</h3>
+        <p>Set the capture interval, how long to keep history, and which apps to never record. You decide the balance between storage and memory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="status-en">
+  <div class="container">
+    <h2>Development status</h2>
+    <p class="lede" style="margin-left:0;">DisplayMemory is in active development. The core is working, and distributable builds are on the way.</p>
+    <ul class="checklist">
+      <li><span class="ok">✓</span> Screen capture (macOS / Windows)</li>
+      <li><span class="ok">✓</span> On-device OCR (English, Japanese, and more)</li>
+      <li><span class="ok">✓</span> Searchable timeline</li>
+      <li><span class="soon">◷</span> Distributable builds (macOS / Windows) — soon</li>
+      <li><span class="soon">◷</span> Settings UI (interval, retention, app exclusions)</li>
+      <li><span class="soon">◷</span> Optional AI summaries (bring your own key / BYOK)</li>
+    </ul>
+    <p class="note">Want to hear when it ships? Use “Get launch updates” below.</p>
+  </div>
+</section>
+
+<section class="screenshots">
+  <div class="container">
+    <h2>Screens</h2>
+    <div class="shot-placeholder">Screenshots are coming as we get closer to launch.</div>
+  </div>
+</section>
+
+<section id="get-en" class="download">
+  <div class="container">
+    <h2>Get it</h2>
+    <div class="dl-grid">
+      <div class="dl-card">
+        <h3>Coming soon</h3>
+        <p>macOS and Windows builds are in development. We'll announce them right here.</p>
+        <p style="margin-top:12px;"><a class="btn primary" href="mailto:ymatsuza.tech@gmail.com?subject=DisplayMemory%20launch%20notification">Get launch updates</a></p>
+      </div>
+      <div class="dl-card">
+        <h3>Contact &amp; testers</h3>
+        <p>Feedback or want to be a tester? Email <a href="mailto:ymatsuza.tech@gmail.com?subject=DisplayMemory%20inquiry">ymatsuza.tech@gmail.com</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="donate">
+  <div class="container">
+    <h2>Support development</h2>
+    <p>DisplayMemory is an indie-built app. Sponsorships are greatly appreciated and help keep it going.</p>
+    <p style="margin-top:20px;">
+      <a class="btn primary" href="https://github.com/sponsors/ymatsuza1128">GitHub Sponsors</a>
+      <a class="btn ghost" href="https://paypal.me/ymatsuza">PayPal</a>
+    </p>
+  </div>
+</section>
+
+<section class="privacy">
+  <div class="container">
+    <h2>Your data</h2>
+    <p>
+      Captured images and the extracted text are stored <strong>on your device</strong>. By default nothing is sent to any server.
+      You can change the capture interval, retention period, and excluded apps at any time, and delete the stored data yourself.
+      Only if you enable the optional AI summary is the relevant text sent — using <strong>your own API key</strong> — to the AI service you choose (off by default).
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki</p>
+    <p>
+      <a href="privacy-policy.html">Privacy</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="mailto:ymatsuza.tech@gmail.com">Contact</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+<!-- =================== /English =================== -->
+
+<script>
+  (function () {
+    var html = document.documentElement;
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.lang-switch button'));
+    function syncButtons(l) {
+      btns.forEach(function (b) {
+        var on = b.getAttribute('data-lang') === l;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    function setLang(l) {
+      html.setAttribute('data-lang', l);
+      html.setAttribute('lang', l);
+      syncButtons(l);
+      try { localStorage.setItem('gitmd-lang', l); } catch (e) {}
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+    });
+    syncButtons(html.getAttribute('data-lang') || 'ja');
+  })();
+</script>
+
+</body>
+</html>
