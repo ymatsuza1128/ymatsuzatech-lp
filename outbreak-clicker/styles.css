@@ -96,7 +96,10 @@ html, body {
 }
 @keyframes pulse { 0% { transform: scale(0.88); } 60% { transform: scale(1.06); } 100% { transform: scale(1); } }
 
-#tap-hint { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 12px; color: var(--muted); z-index: 2; }
+#tap-hint { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 12px; color: var(--muted); z-index: 1; pointer-events: none; }
+/* Onboarding hint only — hide it once a 2nd strain exists, so it can't overlap
+   the strain rows when they wrap to two lines. */
+#strains:has(.strain:nth-child(2)) ~ #tap-hint { display: none; }
 
 #floats { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
 .float {
