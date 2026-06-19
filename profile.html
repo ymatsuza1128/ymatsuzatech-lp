@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="google-site-verification" content="fZpZkxXHNnXRI8iRgVM9_cMciJnVU4SPD11RHNyofyY" />
+<script async src="/assets/js/analytics.js"></script>
+<title>ymatsuzatech — 自己紹介 / About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="松崎 雄太（Yuta Matsuzaki）の自己紹介。茨城を拠点に活動するフリーランスエンジニア。フロントエンド〜バックエンド、インフラ、開発チームのマネジメントまで。" />
+<meta property="og:title" content="松崎 雄太 — 自己紹介 / Yuta Matsuzaki" />
+<meta property="og:description" content="自分の道具は自分でつくる。フロントエンドからバックエンド、インフラ、チームのマネジメントまで手がけるフリーランスエンジニア。" />
+<meta property="og:image" content="https://ymatsuzatech.com/images/profile-jump.webp" />
+<meta property="og:url" content="https://ymatsuzatech.com/profile.html" />
+<meta property="og:type" content="profile" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="松崎 雄太 — 自己紹介 / Yuta Matsuzaki" />
+<meta name="twitter:description" content="自分の道具は自分でつくる、フリーランスエンジニア。" />
+<meta name="twitter:image" content="https://ymatsuzatech.com/images/profile-jump.webp" />
+<link rel="canonical" href="https://ymatsuzatech.com/profile.html" />
+<link rel="icon" type="image/png" href="images/playstore-icon-512.png" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .profile-hero { padding-bottom: 40px; }
+  .profile-photo {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    margin: 0 auto 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+  }
+  /* Timeline */
+  .timeline { list-style: none; padding: 0; margin: 0; }
+  .timeline li {
+    position: relative;
+    margin: 0 0 4px 6px;
+    padding: 0 0 22px 24px;
+    border-left: 2px solid var(--card-border);
+  }
+  .timeline li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .timeline li::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--bg);
+  }
+  .timeline .year { display: block; font-weight: 600; color: var(--accent); font-size: 0.9rem; }
+  .timeline .role { font-weight: 600; }
+  .timeline p { margin: 2px 0 0; color: var(--muted); }
+  /* Skill tags inside cards */
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; padding: 0; }
+  .skill-tags span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+  .cta { text-align: center; }
+</style>
+<script>
+  (function () {
+    try {
+      var s = localStorage.getItem('gitmd-lang');
+      if (s === 'en' || s === 'ja') {
+        document.documentElement.setAttribute('data-lang', s);
+        document.documentElement.setAttribute('lang', s);
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<nav class="lang-switch" aria-label="Language / 言語">
+  <button type="button" data-lang="ja">日本語</button>
+  <button type="button" data-lang="en">English</button>
+</nav>
+
+<!-- ===================== 日本語 ===================== -->
+<div class="lang-content" lang="ja">
+<header class="hero profile-hero">
+  <div class="container">
+    <img class="profile-photo" src="images/profile-jump.webp" width="1280" height="854" alt="ジャンプする松崎雄太" />
+    <h1>松崎 雄太</h1>
+    <p class="tagline">フリーランスエンジニア</p>
+    <p class="lede">自分の道具は自分でつくる。フロントエンドからバックエンド、インフラ、チームのマネジメントまで。</p>
+    <div class="platforms">
+      <span>Vue</span><span>Nuxt</span><span>React</span><span>PHP</span><span>Laravel</span><span>AWS</span><span>Azure</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2>自己紹介</h2>
+    <p>はじめまして。松崎 雄太です。茨城を拠点に活動するフリーランスエンジニアで、「自分の道具は自分でつくる」をモットーに Web を中心に開発しています。ものづくりが好きで、高校時代からアプリやプロダクトをつくり続けてきました。</p>
+    <p>大学で情報ネットワークを学んだあと、ヤフー株式会社で大規模サービスの開発に携わり、その後フリーランスとして独立しました。フロントエンド・バックエンドの開発から、企画・運用、開発チームのマネジメントまで一通り経験しています。</p>
+    <p>新しい技術やトレンドのキャッチアップが習慣で、つくったものが誰かの役に立つことに一番のやりがいを感じます。このサイトに置いているアプリも、その「つくりたい」から生まれたものです。</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>経歴</h2>
+    <ul class="timeline">
+      <li>
+        <span class="year">2012</span>
+        <span class="role">大学 情報ネットワーク学科 卒業</span>
+      </li>
+      <li>
+        <span class="year">2012 – 2017</span>
+        <span class="role">ヤフー株式会社</span>
+        <p>通知プラットフォームの開発、スマートフォン版 Yahoo!メールの開発・PM。</p>
+      </li>
+      <li>
+        <span class="year">2017 – 2019</span>
+        <span class="role">株式会社インテグラル</span>
+        <p>デスクトップアプリや社内ツールの開発を、企画〜設計〜保守まで担当。</p>
+      </li>
+      <li>
+        <span class="year">2019 – 現在</span>
+        <span class="role">フリーランスエンジニア</span>
+        <p>自社サービスの開発、開発チームリーダー、メンター、教材執筆など。</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>スキル</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>フロントエンド</h3>
+        <div class="skill-tags"><span>Vue</span><span>Nuxt</span><span>React</span><span>JavaScript</span><span>Cordova</span></div>
+      </div>
+      <div class="card">
+        <h3>バックエンド</h3>
+        <div class="skill-tags"><span>PHP</span><span>Laravel</span><span>Ruby on Rails</span><span>CodeIgniter</span><span>C++</span></div>
+      </div>
+      <div class="card">
+        <h3>インフラ・クラウド</h3>
+        <div class="skill-tags"><span>AWS</span><span>Azure</span><span>Firebase</span><span>Linux</span><span>Mackerel</span></div>
+      </div>
+      <div class="card">
+        <h3>マネジメント・その他</h3>
+        <div class="skill-tags"><span>開発チームリーダー</span><span>ディレクション</span><span>メンター</span><span>教材執筆</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>ハイライト</h2>
+    <div class="grid">
+      <div class="card"><h3>メンター TOP5 選出</h3><p>オンラインプログラミングスクールのメンターとして上位5名に選ばれ、紹介されました。</p></div>
+      <div class="card"><h3>新規サービスを収益化</h3><p>新しい自社サービスを企画〜リリースまで担当し、収益化に成功しました。</p></div>
+      <div class="card"><h3>産学官連携プロジェクト</h3><p>大学・行政・企業が連携するプロジェクトに参画しました。</p></div>
+      <div class="card"><h3>教材の執筆</h3><p>プログラミング初心者に向けた学習教材を執筆しています。</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>資格</h2>
+    <ul class="checklist">
+      <li><span class="ok">✓</span>応用情報技術者（2017）</li>
+      <li><span class="ok">✓</span>普通自動車免許（第一種）</li>
+      <li><span class="ok">✓</span>日本漢字能力検定 2級</li>
+      <li><span class="soon">▸</span>データベーススペシャリスト試験 受験予定（2026）</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container cta">
+    <h2>つくったもの</h2>
+    <p class="lede">ノートアプリから、ニューラルネットを学べるゲームまで。つくったアプリを置いています。</p>
+    <p>
+      <a class="btn primary" href="index.html">つくったアプリを見る</a>
+      <a class="btn ghost" href="mailto:ymatsuza.tech@gmail.com">お問い合わせ</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki</p>
+    <p>
+      <a href="index.html">アプリ一覧</a> &middot;
+      <a href="privacy-policy.html">Privacy</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="mailto:ymatsuza.tech@gmail.com">Contact</a>
+    </p>
+  </div>
+</footer>
+</div>
+<!-- =================== /日本語 =================== -->
+
+<!-- ===================== English ===================== -->
+<div class="lang-content" lang="en">
+<header class="hero profile-hero">
+  <div class="container">
+    <img class="profile-photo" src="images/profile-jump.webp" width="1280" height="854" alt="Yuta Matsuzaki mid-jump" />
+    <h1>Yuta Matsuzaki</h1>
+    <p class="tagline">Freelance Engineer</p>
+    <p class="lede">Build your own tools. From front-end to back-end, infrastructure, and leading teams.</p>
+    <div class="platforms">
+      <span>Vue</span><span>Nuxt</span><span>React</span><span>PHP</span><span>Laravel</span><span>AWS</span><span>Azure</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2>About</h2>
+    <p>Hi, I'm Yuta Matsuzaki — a freelance engineer based in Ibaraki, Japan. &ldquo;Build your own tools&rdquo; is my motto, and I mostly work on the web. I've loved making things since high school and have been building apps and products ever since.</p>
+    <p>After studying information networking at university, I worked on large-scale services at Yahoo Japan, then went independent as a freelancer. I've covered the whole range — front-end and back-end development, planning, operations, and leading development teams.</p>
+    <p>Keeping up with new technology is a habit, and what I enjoy most is when something I built turns out to be useful to someone. The apps on this site grew out of exactly that itch to build.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Career</h2>
+    <ul class="timeline">
+      <li>
+        <span class="year">2012</span>
+        <span class="role">Graduated — Information &amp; Network Engineering</span>
+      </li>
+      <li>
+        <span class="year">2012 – 2017</span>
+        <span class="role">Yahoo Japan Corporation</span>
+        <p>Notification-platform development; development and PM for the smartphone web version of Yahoo! Mail.</p>
+      </li>
+      <li>
+        <span class="year">2017 – 2019</span>
+        <span class="role">Integral Inc.</span>
+        <p>Built desktop apps and internal tools, from planning and design through to maintenance.</p>
+      </li>
+      <li>
+        <span class="year">2019 – present</span>
+        <span class="role">Freelance engineer</span>
+        <p>Product development, dev-team lead, mentoring, and course authoring.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Skills</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Front-end</h3>
+        <div class="skill-tags"><span>Vue</span><span>Nuxt</span><span>React</span><span>JavaScript</span><span>Cordova</span></div>
+      </div>
+      <div class="card">
+        <h3>Back-end</h3>
+        <div class="skill-tags"><span>PHP</span><span>Laravel</span><span>Ruby on Rails</span><span>CodeIgniter</span><span>C++</span></div>
+      </div>
+      <div class="card">
+        <h3>Infra &amp; Cloud</h3>
+        <div class="skill-tags"><span>AWS</span><span>Azure</span><span>Firebase</span><span>Linux</span><span>Mackerel</span></div>
+      </div>
+      <div class="card">
+        <h3>Management &amp; more</h3>
+        <div class="skill-tags"><span>Dev team lead</span><span>Direction</span><span>Mentoring</span><span>Course authoring</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Highlights</h2>
+    <div class="grid">
+      <div class="card"><h3>Top 5 mentor</h3><p>Selected as one of the top 5 mentors at an online programming school.</p></div>
+      <div class="card"><h3>Shipped &amp; monetized</h3><p>Planned, launched, and monetized a new in-house service.</p></div>
+      <div class="card"><h3>Industry–academia–government</h3><p>Took part in a collaborative project across companies, universities, and government.</p></div>
+      <div class="card"><h3>Course authoring</h3><p>Writing learning materials for programming beginners.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Certifications</h2>
+    <ul class="checklist">
+      <li><span class="ok">✓</span>Applied Information Technology Engineer (2017)</li>
+      <li><span class="ok">✓</span>Driver's license (Class 1)</li>
+      <li><span class="ok">✓</span>Kanji Aptitude Test, Level 2</li>
+      <li><span class="soon">▸</span>Database Specialist exam — scheduled (2026)</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container cta">
+    <h2>What I've built</h2>
+    <p class="lede">From a notes app to a game that teaches neural networks — here are the apps I've made.</p>
+    <p>
+      <a class="btn primary" href="index.html">See the apps</a>
+      <a class="btn ghost" href="mailto:ymatsuza.tech@gmail.com">Get in touch</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki</p>
+    <p>
+      <a href="index.html">Apps</a> &middot;
+      <a href="privacy-policy.html">Privacy</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="mailto:ymatsuza.tech@gmail.com">Contact</a>
+    </p>
+  </div>
+</footer>
+</div>
+<!-- =================== /English =================== -->
+
+<script>
+  (function () {
+    var html = document.documentElement;
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.lang-switch button'));
+    function syncButtons(l) {
+      btns.forEach(function (b) {
+        var on = b.getAttribute('data-lang') === l;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    function setLang(l) {
+      html.setAttribute('data-lang', l);
+      html.setAttribute('lang', l);
+      syncButtons(l);
+      try { localStorage.setItem('gitmd-lang', l); } catch (e) {}
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+    });
+    syncButtons(html.getAttribute('data-lang') || 'ja');
+  })();
+</script>
+
+</body>
+</html>
