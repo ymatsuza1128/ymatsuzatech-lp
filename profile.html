@@ -64,6 +64,29 @@
   }
   .cta { text-align: center; }
   .container.cta { margin: 0 auto; }
+  /* Social links */
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 8px;
+    padding: 0;
+  }
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-links a:hover { border-color: var(--accent); color: var(--accent); }
 </style>
 <script>
   (function () {
@@ -92,6 +115,10 @@
     <h1>松崎 雄太</h1>
     <p class="tagline">フリーランスエンジニア</p>
     <p class="lede">自分の道具は自分でつくる。フロントエンドからバックエンド、インフラ、チームのマネジメントまで。</p>
+    <div class="social-links">
+      <a href="https://x.com/ymatsuza" target="_blank" rel="noopener noreferrer">X (@ymatsuza)</a>
+      <a href="https://qiita.com/ymatsuza" target="_blank" rel="noopener noreferrer">Qiita (@ymatsuza)</a>
+    </div>
     <div class="platforms">
       <span>Vue</span><span>Nuxt</span><span>React</span><span>PHP</span><span>Laravel</span><span>AWS</span><span>Azure</span>
     </div>
@@ -228,6 +255,10 @@
     <h1>Yuta Matsuzaki</h1>
     <p class="tagline">Freelance Engineer</p>
     <p class="lede">Build your own tools. From front-end to back-end, infrastructure, and leading teams.</p>
+    <div class="social-links">
+      <a href="https://x.com/ymatsuza" target="_blank" rel="noopener noreferrer">X (@ymatsuza)</a>
+      <a href="https://qiita.com/ymatsuza" target="_blank" rel="noopener noreferrer">Qiita (@ymatsuza)</a>
+    </div>
     <div class="platforms">
       <span>Vue</span><span>Nuxt</span><span>React</span><span>PHP</span><span>Laravel</span><span>AWS</span><span>Azure</span>
     </div>
