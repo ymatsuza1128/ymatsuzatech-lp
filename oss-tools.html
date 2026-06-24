@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ja" data-lang="ja">
+<head>
+<meta charset="utf-8" />
+<script async src="/assets/js/analytics.js"></script>
+<title>oss-tools — 小さく鋭い CLI ツール集</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="oss-tools は、毎日の開発に効く小さく焦点を絞った CLI ツール集。rcmd（個人コマンド知識ベース）と rcopy（除外付きクロスプラットフォーム copy）。pure-core + 薄い CLI、依存最小、Windows / macOS / Linux で同一挙動。" />
+<meta property="og:title" content="oss-tools" />
+<meta property="og:description" content="小さく鋭い CLI ツール集。rcmd と rcopy。クロスプラットフォーム・依存最小・ローカル完結。" />
+<meta property="og:image" content="https://ymatsuzatech.com/images/oss-tools-icon.svg" />
+<meta property="og:url" content="https://ymatsuzatech.com/oss-tools.html" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="oss-tools" />
+<meta name="twitter:description" content="小さく鋭い CLI ツール集。rcmd と rcopy。クロスプラットフォーム・依存最小・ローカル完結。" />
+<meta name="twitter:image" content="https://ymatsuzatech.com/images/oss-tools-icon.svg" />
+<link rel="canonical" href="https://ymatsuzatech.com/oss-tools.html" />
+<link rel="icon" type="image/svg+xml" href="images/oss-tools-icon.svg" />
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  .code-block pre {
+    margin: 0;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--fg);
+    white-space: pre;
+  }
+  .code-block .c { color: var(--muted); }
+  .code-block .cmd { color: var(--accent); }
+  .tool-card .code-block { margin: 14px 0 0; }
+  .tool-card h3 code { font-size: 1.05em; }
+</style>
+<script>
+  (function () {
+    try {
+      var s = localStorage.getItem('gitmd-lang');
+      if (s === 'en' || s === 'ja') {
+        document.documentElement.setAttribute('data-lang', s);
+        document.documentElement.setAttribute('lang', s);
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<nav class="lang-switch" aria-label="Language / 言語">
+  <button type="button" data-lang="ja">日本語</button>
+  <button type="button" data-lang="en">English</button>
+</nav>
+
+<!-- ===================== 日本語 ===================== -->
+<div class="lang-content" lang="ja">
+
+<header class="hero">
+  <div class="container">
+    <img class="logo" src="images/oss-tools-icon.svg" alt="oss-tools アイコン" />
+    <h1>oss-tools</h1>
+    <p class="tagline">小さく鋭い CLI ツール集</p>
+    <p class="platforms" aria-label="対応プラットフォーム">
+      <span>Windows</span><span>macOS</span><span>Linux</span>
+    </p>
+    <p class="lede">
+      毎日の開発に効く、ひとつのことだけをきれいにこなす小さな CLI 群。
+      どれも同じかたち &mdash; 純関数のコア、薄い CLI、ほぼ依存なし。
+      Windows / macOS / Linux で同じように動きます。
+    </p>
+    <p class="cta">
+      <a class="btn primary" href="https://github.com/ymatsuza" target="_blank" rel="noopener">GitHub で見る</a>
+      <a class="btn ghost" href="#tools-ja">ツール一覧</a>
+    </p>
+  </div>
+</header>
+
+<section class="features">
+  <div class="container">
+    <h2>つくりかたの方針</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>焦点を絞る</h3>
+        <p>ひとつの仕事をきちんと。寄せ集めのフラグも、設定ファイルも、驚きもなし。</p>
+      </div>
+      <div class="card">
+        <h3>クロスプラットフォーム</h3>
+        <p>Windows を後回しにしない。どの OS でも同じ挙動を最初から狙います。</p>
+      </div>
+      <div class="card">
+        <h3>pure-core ＋ 薄い CLI</h3>
+        <p>ロジックは純関数のコアに、CLI は薄い配線だけ。テストしやすく、読みやすい。</p>
+      </div>
+      <div class="card">
+        <h3>依存は最小</h3>
+        <p><code>typer</code> ＋ 標準ライブラリ。コンパイル不要、重いインストールもなし。</p>
+      </div>
+      <div class="card">
+        <h3>ローカル完結</h3>
+        <p>ネットワークなし、アカウントなし、テレメトリなし。データは手元のマシンに留まります。</p>
+      </div>
+      <div class="card">
+        <h3>テスト済み</h3>
+        <p>pytest でテストファーストに開発。各ツールが数十のテストを通して出荷されます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools-ja" class="features">
+  <div class="container">
+    <h2>ツール一覧</h2>
+    <div class="grid">
+
+      <div class="card tool-card">
+        <h3><code>$ rcmd</code> &mdash; 個人コマンド知識ベース</h3>
+        <p>シェル履歴から「残す価値のあるコマンド」をキュレーション。<code>{{プレースホルダー}}</code> 置換・タグ・全文検索で素早く呼び出し、そのまま実行。ローカル TOML 一枚、依存 1 つ。</p>
+        <div class="code-block"><pre><span class="cmd">uv tool install "git+https://github.com/ymatsuza/rcmd.git"</span></pre></div>
+        <p style="margin-top:14px"><a class="btn ghost" href="rcmd.html">詳しく見る</a> <a class="btn ghost" href="https://github.com/ymatsuza/rcmd" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+
+      <div class="card tool-card">
+        <h3><code>$ rcopy</code> &mdash; 除外付きクロスプラットフォーム copy</h3>
+        <p>gitignore 風の <code>--exclude</code> / <code>--include</code> が全 OS で同じに効く再帰コピー。<code>--dry-run</code> で実行前プレビュー。Windows の <code>Copy-Item -Recurse -Exclude</code> 破綻・<code>robocopy</code>・<code>rsync</code> の隙間を埋めます。</p>
+        <div class="code-block"><pre><span class="cmd">uv tool install "git+https://github.com/ymatsuza/rcopy.git"</span></pre></div>
+        <p style="margin-top:14px"><a class="btn ghost" href="https://github.com/ymatsuza/rcopy" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+
+    </div>
+    <p class="note">ツールは順次ふやしていきます。</p>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2>さわってみる</h2>
+
+    <h3 style="margin-top:0">rcmd &mdash; 残す・探す・呼び出す</h3>
+    <div class="code-block"><pre><span class="c"># プレースホルダー付きで保存</span>
+<span class="cmd">rcmd save "docker run --rm -it -v {{path}}:/work {{image}} bash" -d "作業ディレクトリをマウント" -t docker</span>
+
+<span class="c"># 履歴から fzf で選んで保存 / 検索して呼び出し</span>
+<span class="cmd">rcmd history --unique --reverse | fzf | rcmd save -d "説明" -t imported
+rcmd get k3f9 --set path=. --set image=alpine</span></pre></div>
+
+    <h3>rcopy &mdash; 除外付きで安全にコピー</h3>
+    <div class="code-block"><pre><span class="c"># gitignore 風の除外。まず --dry-run で確認</span>
+<span class="cmd">rcopy ./project ./backup -e node_modules -e "*.log" -e "build/" --dry-run</span>
+
+<span class="c"># .gitignore をそのまま使う / 既存を上書きしない</span>
+<span class="cmd">rcopy ./project ./backup --exclude-from .gitignore --no-clobber</span></pre></div>
+  </div>
+</section>
+
+<section class="backends">
+  <div class="container">
+    <h2>共通の約束</h2>
+    <ul class="checklist">
+      <li><span class="ok">&#x2714;</span> <strong>Python 3.11 / uv / Typer / pytest</strong> &mdash; どのツールも同じスタック</li>
+      <li><span class="ok">&#x2714;</span> <strong>pure-core ＋ 薄い CLI</strong> &mdash; テストで完全検証、実機で実証</li>
+      <li><span class="ok">&#x2714;</span> <strong>ローカル完結・依存最小</strong> &mdash; ネットワーク不要、典型的に依存は <code>typer</code> のみ</li>
+      <li><span class="ok">&#x2714;</span> <strong>MIT ライセンス</strong> &mdash; それぞれ独立したリポジトリで公開</li>
+    </ul>
+    <p>各ツールは個別リポジトリで配布。必要なものだけ入れられます。</p>
+  </div>
+</section>
+
+<section class="donate">
+  <div class="container">
+    <h2>開発を支援する</h2>
+    <p>oss-tools は個人開発の OSS ツール集です。役に立てたらサポートをいただけると励みになります。</p>
+    <p style="margin-top:20px;">
+      <a class="btn primary" href="https://github.com/sponsors/ymatsuza1128">GitHub Sponsors</a>
+      <a class="btn ghost" href="https://paypal.me/ymatsuza">PayPal</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki. oss-tools は OSS（各リポジトリのライセンスを参照）。本ページは ymatsuzatech.com の公開ランディングの一部です。</p>
+    <p>
+      <a href="profile.html">自己紹介</a> &middot;
+      <a href="privacy-policy.html">プライバシー</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScYyQolwD-83-JUnu-p8sfYY5WzsHtNr0s3JX3aifVP8n3A3g/viewform" target="_blank" rel="noopener">お問い合わせ</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+<!-- =================== /日本語 =================== -->
+
+<!-- ===================== English ===================== -->
+<div class="lang-content" lang="en">
+
+<header class="hero">
+  <div class="container">
+    <img class="logo" src="images/oss-tools-icon.svg" alt="oss-tools icon" />
+    <h1>oss-tools</h1>
+    <p class="tagline">Small, sharp CLI tools</p>
+    <p class="platforms" aria-label="Supported platforms">
+      <span>Windows</span><span>macOS</span><span>Linux</span>
+    </p>
+    <p class="lede">
+      A growing set of focused command-line tools for everyday dev work &mdash; each one
+      does a single thing and gets out of your way. Same shape every time: a pure-function
+      core, a thin CLI, almost no dependencies. They run the same on Windows, macOS, and Linux.
+    </p>
+    <p class="cta">
+      <a class="btn primary" href="https://github.com/ymatsuza" target="_blank" rel="noopener">View on GitHub</a>
+      <a class="btn ghost" href="#tools-en">The tools</a>
+    </p>
+  </div>
+</header>
+
+<section class="features">
+  <div class="container">
+    <h2>The approach</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Focused</h3>
+        <p>One job, done well. No grab-bag flags, no config files, no surprises.</p>
+      </div>
+      <div class="card">
+        <h3>Cross-platform</h3>
+        <p>Windows is a first-class target, not an afterthought. Same behaviour everywhere.</p>
+      </div>
+      <div class="card">
+        <h3>Pure-core + thin CLI</h3>
+        <p>Logic lives in pure functions; the CLI is a thin wrapper. Easy to test, easy to read.</p>
+      </div>
+      <div class="card">
+        <h3>Dependency-light</h3>
+        <p><code>typer</code> plus the standard library. Nothing compiled, nothing heavy to install.</p>
+      </div>
+      <div class="card">
+        <h3>Local-only</h3>
+        <p>No network, no accounts, no telemetry. Your data stays on your machine.</p>
+      </div>
+      <div class="card">
+        <h3>Tested</h3>
+        <p>Built test-first with pytest. Each tool ships with dozens of passing tests.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools-en" class="features">
+  <div class="container">
+    <h2>The tools</h2>
+    <div class="grid">
+
+      <div class="card tool-card">
+        <h3><code>$ rcmd</code> &mdash; personal command knowledge base</h3>
+        <p>Curate the commands worth keeping from your shell history. Recall them with <code>{{placeholder}}</code> substitution, tags, and full-text search &mdash; or run them directly. Single local TOML file, one dependency.</p>
+        <div class="code-block"><pre><span class="cmd">uv tool install "git+https://github.com/ymatsuza/rcmd.git"</span></pre></div>
+        <p style="margin-top:14px"><a class="btn ghost" href="rcmd.html">Learn more</a> <a class="btn ghost" href="https://github.com/ymatsuza/rcmd" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+
+      <div class="card tool-card">
+        <h3><code>$ rcopy</code> &mdash; cross-platform copy with excludes</h3>
+        <p>Recursive copy with gitignore-style <code>--exclude</code> / <code>--include</code> that work the same on every OS, plus a <code>--dry-run</code> preview. Fills the gaps in Windows <code>Copy-Item -Recurse -Exclude</code>, <code>robocopy</code>, and <code>rsync</code>.</p>
+        <div class="code-block"><pre><span class="cmd">uv tool install "git+https://github.com/ymatsuza/rcopy.git"</span></pre></div>
+        <p style="margin-top:14px"><a class="btn ghost" href="https://github.com/ymatsuza/rcopy" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+
+    </div>
+    <p class="note">More tools coming.</p>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2>Try it</h2>
+
+    <h3 style="margin-top:0">rcmd &mdash; keep it, find it, recall it</h3>
+    <div class="code-block"><pre><span class="c"># Save with placeholders</span>
+<span class="cmd">rcmd save "docker run --rm -it -v {{path}}:/work {{image}} bash" -d "mount cwd" -t docker</span>
+
+<span class="c"># Import from history via fzf / recall with values</span>
+<span class="cmd">rcmd history --unique --reverse | fzf | rcmd save -d "desc" -t imported
+rcmd get k3f9 --set path=. --set image=alpine</span></pre></div>
+
+    <h3>rcopy &mdash; copy safely with excludes</h3>
+    <div class="code-block"><pre><span class="c"># gitignore-style excludes; preview with --dry-run first</span>
+<span class="cmd">rcopy ./project ./backup -e node_modules -e "*.log" -e "build/" --dry-run</span>
+
+<span class="c"># Reuse your .gitignore / never overwrite existing files</span>
+<span class="cmd">rcopy ./project ./backup --exclude-from .gitignore --no-clobber</span></pre></div>
+  </div>
+</section>
+
+<section class="backends">
+  <div class="container">
+    <h2>Shared conventions</h2>
+    <ul class="checklist">
+      <li><span class="ok">&#x2714;</span> <strong>Python 3.11 / uv / Typer / pytest</strong> &mdash; the same stack across every tool</li>
+      <li><span class="ok">&#x2714;</span> <strong>Pure-core + thin CLI</strong> &mdash; fully unit-tested, verified on real machines</li>
+      <li><span class="ok">&#x2714;</span> <strong>Local-only, dependency-light</strong> &mdash; no network; typically <code>typer</code> is the only dependency</li>
+      <li><span class="ok">&#x2714;</span> <strong>MIT licensed</strong> &mdash; each in its own repository</li>
+    </ul>
+    <p>Each tool ships in its own repo &mdash; install only what you need.</p>
+  </div>
+</section>
+
+<section class="donate">
+  <div class="container">
+    <h2>Support development</h2>
+    <p>oss-tools is a set of free, open-source tools built in personal time. Sponsorships are greatly appreciated.</p>
+    <p style="margin-top:20px;">
+      <a class="btn primary" href="https://github.com/sponsors/ymatsuza1128">GitHub Sponsors</a>
+      <a class="btn ghost" href="https://paypal.me/ymatsuza">PayPal</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Yuta Matsuzaki. oss-tools is open source; see each repository for license details. This page is part of the ymatsuzatech.com public landing.</p>
+    <p>
+      <a href="profile.html">About</a> &middot;
+      <a href="privacy-policy.html">Privacy</a> &middot;
+      <a href="faq.html">FAQ</a> &middot;
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScYyQolwD-83-JUnu-p8sfYY5WzsHtNr0s3JX3aifVP8n3A3g/viewform" target="_blank" rel="noopener">Contact</a>
+    </p>
+  </div>
+</footer>
+
+</div>
+<!-- =================== /English =================== -->
+
+<script>
+  (function () {
+    var html = document.documentElement;
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.lang-switch button'));
+    function syncButtons(l) {
+      btns.forEach(function (b) {
+        var on = b.getAttribute('data-lang') === l;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    function setLang(l) {
+      html.setAttribute('data-lang', l);
+      html.setAttribute('lang', l);
+      syncButtons(l);
+      try { localStorage.setItem('gitmd-lang', l); } catch (e) {}
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+    });
+    syncButtons(html.getAttribute('data-lang') || 'ja');
+  })();
+</script>
+
+</body>
+</html>
